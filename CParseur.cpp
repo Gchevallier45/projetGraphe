@@ -32,7 +32,7 @@ CParseur::CParseur()
  */
 CParseur::CParseur(string sCheminFichier)
 {
-	cout << "Lecture de " << sCheminFichier << endl;
+	/*cout << "Lecture de " << sCheminFichier << endl;
 	ifPARFichier.open(sCheminFichier, ios::in);
 	if (ifPARFichier)
 	{
@@ -76,7 +76,7 @@ CParseur::CParseur(string sCheminFichier)
 	}
 	else {
 		throw CException("Impossible d'ouvrir le fichier");
-	}
+	}*/
 }
 
 /**
