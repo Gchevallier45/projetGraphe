@@ -32,7 +32,7 @@ CParseur::CParseur()
  */
 CParseur::CParseur(string sCheminFichier)
 {
-	/*cout << "Lecture de " << sCheminFichier << endl;
+	cout << "Lecture de " << sCheminFichier << endl;
 	ifPARFichier.open(sCheminFichier, ios::in);
 	if (ifPARFichier)
 	{
@@ -46,7 +46,13 @@ CParseur::CParseur(string sCheminFichier)
 		while (getline(ifPARFichier, sLigne))
 		{
 			if (sLigne.find("]") != -1) { //Si la dernière ligne est atteinte on arrête le parser
-				break;
+				if (sommetParse == false) {
+					sommetParse = true;
+					getline(ifPARFichier, sLigne); //permet de sauter la ligne juste après "]"
+				}
+				else {
+					break;
+				}
 			}
 			else {
 				switch (uiLigne) {
@@ -63,9 +69,18 @@ CParseur::CParseur(string sCheminFichier)
 				default:
 					char *pcEnd = new char[sLigne.length() + 1];
 					strcpy_s(pcEnd, sLigne.length()+1,sLigne.c_str());
-					for (unsigned int uiBoucle = 0; uiBoucle<uiNbColonnes; uiBoucle++) {
-						double test = strtod(pcEnd, &pcEnd);
-						MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
+					if (sommetParse == false) {
+						for (unsigned int uiBoucle = 0; uiBoucle < uiNbSommets; uiBoucle++) {
+							double test = strtod(pcEnd, &pcEnd);
+							cout << "mdr";
+							//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
+						}
+					}
+					else {
+						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
+							double test = strtod(pcEnd, &pcEnd);
+							//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
+						}
 					}
 					break;
 				}
@@ -76,7 +91,7 @@ CParseur::CParseur(string sCheminFichier)
 	}
 	else {
 		throw CException("Impossible d'ouvrir le fichier");
-	}*/
+	}
 }
 
 /**
