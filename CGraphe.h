@@ -14,4 +14,8 @@ public:
 	void ajouterPoint();
 	void modifierPoint();
 	void retirerPoint();
+	void ajouterLiaison();
+	void modifierLiaison();
+	void retirerLiaison();
+	void visualiserGraphe();
 };

@@ -1,4 +1,6 @@
 #pragma once
+#include "CSommet.h"
+
 class CArc
 {
 private :

@@ -15,5 +15,6 @@ public:
 	void retirerArrivant();
 	void ajouterPartant();
 	void retirerPartant();
+	void visualiserSommet();
 };
 
