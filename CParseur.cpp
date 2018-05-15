@@ -70,17 +70,17 @@ CParseur::CParseur(string sCheminFichier)
 					char *pcEnd = new char[sLigne.length() + 1];
 					strcpy_s(pcEnd, sLigne.length()+1,sLigne.c_str());
 					if (sommetParse == false) {
-						for (unsigned int uiBoucle = 0; uiBoucle < uiNbSommets; uiBoucle++) {
-							double test = strtod(pcEnd, &pcEnd);
-							cout << "mdr";
-							//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
-						}
+						double test = strtod(pcEnd, &pcEnd);
+						cout << test << endl;
+						//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
 					}
 					else {
 						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
 							double test = strtod(pcEnd, &pcEnd);
+							cout << test;
 							//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
 						}
+						cout << endl;
 					}
 					break;
 				}
