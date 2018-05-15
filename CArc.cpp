@@ -10,3 +10,7 @@ CArc::CArc()
 CArc::~CArc()
 {
 }
+
+void CArc::ajouterDestination()
+{
+}

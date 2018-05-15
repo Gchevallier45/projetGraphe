@@ -25,3 +25,19 @@ void CGraphe::modifierPoint()
 void CGraphe::retirerPoint()
 {
 }
+
+void CGraphe::ajouterLiaison()
+{
+}
+
+void CGraphe::modifierLiaison()
+{
+}
+
+void CGraphe::retirerLiaison()
+{
+}
+
+void CGraphe::visualiserGraphe()
+{
+}
