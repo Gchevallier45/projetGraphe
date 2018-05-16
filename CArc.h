@@ -1,5 +1,6 @@
 #pragma once
-#include "CSommet.h"
+
+class CSommet;
 
 class CArc
 {
@@ -9,7 +10,7 @@ public:
 	CArc();
 	CArc(CSommet * pSOMDestination);
 	~CArc();
-	void ARCAjouterDestination(CSommet* SOMSommetParam);
-	int ARCObtenirNumero();
+	void ARCAjouterDestination(CSommet* pSOMSommetParam);
+	CSommet *ARCObtenirSommet();
 };
 
