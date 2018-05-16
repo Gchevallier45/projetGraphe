@@ -8,19 +8,19 @@ using namespace std;
 class CSommet
 {
 private :
-	unsigned int uiNumero;
-	vector<CArc> pARCArrivant;
-	vector<CArc> pARCPartant;
+	unsigned int uiSOMNumero;
+	vector<CArc> vARCSOMArrivant;
+	vector<CArc> vARCSOMPartant;
 
 public:
 	CSommet();
 	CSommet(unsigned int uiNumeroParam);
 	~CSommet();
 	int SOMObtenirNumero();
-	void SOMAjouterArrivant(CSommet* SOMArrivant);
-	void SOMRetirerArrivant(CArc* ARCArrivant);
-	void SOMAjouterPartant(CSommet* SOMArrivant);
-	void SOMRetirerPartant(CArc* ARCArrivant);
+	void SOMAjouterArrivant(CSommet* pSOMArrivant);
+	void SOMRetirerArrivant(CArc* pARCArrivant);
+	void SOMAjouterPartant(CSommet* pSOMArrivant);
+	void SOMRetirerPartant(CArc* pARCArrivant);
 	void SOMVisualiserSommet();
 };
 

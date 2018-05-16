@@ -9,7 +9,7 @@ CSommet::CSommet()
 
 CSommet::CSommet(unsigned int uiNumeroParam)
 {
-	uiNumero = uiNumeroParam;
+	uiSOMNumero = uiNumeroParam;
 }
 
 
@@ -19,19 +19,19 @@ CSommet::~CSommet()
 }
 
 int CSommet::SOMObtenirNumero() {
-	return uiNumero;
+	return uiSOMNumero;
 }
 
-void CSommet::SOMAjouterArrivant(CSommet* SOMArrivant)
+void CSommet::SOMAjouterArrivant(CSommet* pSOMArrivant)
 {
-	pARCArrivant.push_back(CArc(SOMArrivant));
+	vARCSOMArrivant.push_back(CArc(pSOMArrivant));
 }
 
-void CSommet::SOMRetirerArrivant(CArc* ARCArrivant)
+void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 {
-	for (int i = 0; i < pARCArrivant.size(); i++) {
-		if (ARCArrivant == &pARCArrivant[i]) {
-			pARCArrivant.erase(pARCArrivant.begin() + i);
+	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
+		if (pARCArrivant == &vARCSOMArrivant[i]) {
+			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}
 	}
 	
