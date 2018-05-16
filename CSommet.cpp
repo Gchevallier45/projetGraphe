@@ -51,6 +51,11 @@ void CSommet::SOMRetirerPartant(CArc* ARCArrivant)
 	}
 }
 
+void CSommet::SOMRetirerSommet(){
+
+
+}
+
 void CSommet::SOMVisualiserSommet()
 {
 	cout << "Le point " << uiNumero << "est relié ";

@@ -17,9 +17,9 @@ CArc::~CArc()
 
 void CArc::ARCAjouterDestination(CSommet* SOMSommetParam)
 {
-	pSOMDestination = SOMSommetParam;
+	pARCSOMDestination = SOMSommetParam;
 }
 
 int CArc::ARCObtenirNumero() {
-	return pSOMDestination->SOMObtenirNumero;
+	return pARCSOMDestination->SOMObtenirNumero;
 }

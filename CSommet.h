@@ -21,6 +21,7 @@ public:
 	void SOMRetirerArrivant(CArc* pARCArrivant);
 	void SOMAjouterPartant(CSommet* pSOMArrivant);
 	void SOMRetirerPartant(CArc* pARCArrivant);
+	void SOMRetirerSommet();
 	void SOMVisualiserSommet();
 };
 

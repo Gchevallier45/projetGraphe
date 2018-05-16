@@ -4,7 +4,7 @@
 class CArc
 {
 private :
-	//CSommet * pSOMDestination;
+	CSommet * pSOMARCDestination;
 public:
 	CArc();
 	CArc(CSommet * pSOMDestination);
