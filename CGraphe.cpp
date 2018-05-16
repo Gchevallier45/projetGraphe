@@ -24,10 +24,10 @@ void CGraphe::GRAModifierPoint()
 
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 {
-	for (unsigned int uiBoucle = 0; uiBoucle < SOMlist.size(); uiBoucle++) {
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
 
-		if (SOMlist[uiBoucle].SOMObtenirNumero() == uiPoint) {
-			SOMlist.erase(SOMlist.begin()+ uiBoucle);
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint) {
+			vSOMGRAlist.erase(vSOMGRAlist.begin()+ uiBoucle);
 		}	
 	}
 }
@@ -35,19 +35,19 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 void CGraphe::GRAAjouterLiaison(unsigned int uiPoint1, unsigned int uiPoint2)
 {
 	unsigned int uiPlaceSommet1, uiPlaceSommet2;
-	for (unsigned int uiBoucle = 0; uiBoucle < SOMlist.size(); uiBoucle++) {
-		if (SOMlist[uiBoucle].SOMObtenirNumero() == uiPoint1) {
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint1) {
 			uiPlaceSommet1 = uiBoucle;
 		 }
-		if (SOMlist[uiBoucle].SOMObtenirNumero() == uiPoint2) {
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint2) {
 			uiPlaceSommet2 = uiBoucle;
 		}
 	}
-	SOMlist[uiPlaceSommet1].SOMAjouterArrivant(&SOMlist[uiPlaceSommet2]);
-	SOMlist[uiPlaceSommet1].SOMAjouterPartant(&SOMlist[uiPlaceSommet2]);
+	vSOMGRAlist[uiPlaceSommet1].SOMAjouterArrivant(&vSOMGRAlist[uiPlaceSommet2]);
+	vSOMGRAlist[uiPlaceSommet1].SOMAjouterPartant(&vSOMGRAlist[uiPlaceSommet2]);
 	
-	SOMlist[uiPlaceSommet2].SOMAjouterArrivant(&SOMlist[uiPlaceSommet1]);
-	SOMlist[uiPlaceSommet2].SOMAjouterPartant(&SOMlist[uiPlaceSommet1]);
+	vSOMGRAlist[uiPlaceSommet2].SOMAjouterArrivant(&vSOMGRAlist[uiPlaceSommet1]);
+	vSOMGRAlist[uiPlaceSommet2].SOMAjouterPartant(&vSOMGRAlist[uiPlaceSommet1]);
 
 }
 
