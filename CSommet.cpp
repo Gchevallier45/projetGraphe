@@ -37,16 +37,16 @@ void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 	
 }
 
-void CSommet::SOMAjouterPartant(CSommet* SOMArrivant)
+void CSommet::SOMAjouterPartant(CSommet* pSOMArrivant)
 {
-	pARCPartant.push_back(CArc(SOMArrivant));
+	vARCSOMArrivant.push_back(CArc(pSOMArrivant));
 }
 
-void CSommet::SOMRetirerPartant(CArc* ARCArrivant)
+void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
 {
-	for (int i = 0; i < pARCArrivant.size(); i++) {
-		if (ARCArrivant == &pARCArrivant[i]) {
-			pARCArrivant.erase(pARCArrivant.begin() + i);
+	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
+		if (pARCArrivant == &vARCSOMArrivant[i]) {
+			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}
 	}
 }
@@ -58,9 +58,9 @@ void CSommet::SOMRetirerSommet(){
 
 void CSommet::SOMVisualiserSommet()
 {
-	cout << "Le point " << uiNumero << "est relié ";
-	for (int i = 0; i < pARCArrivant.size()-1; i++) {
-		cout << "au point " << pARCArrivant[i].ARCObtenirNumero() << " " << endl;
+	cout << "Le point " << uiSOMNumero << "est relié ";
+	for (int i = 0; i < vARCSOMArrivant.size()-1; i++) {
+		cout << "au point " << vARCSOMArrivant[i].ARCObtenirSommet() << " " << endl;
 	}
 	
 }
