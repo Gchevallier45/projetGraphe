@@ -11,11 +11,11 @@ private:
 public:
 	CGraphe();
 	~CGraphe();
-	void ajouterPoint();
-	void modifierPoint();
-	void retirerPoint();
-	void ajouterLiaison();
-	void modifierLiaison();
-	void retirerLiaison();
-	void visualiserGraphe();
+	void GRAAjouterPoint(unsigned int uiNumero);
+	void GRAModifierPoint();
+	void GRARetirerPoint(unsigned int uiPoint);
+	void GRAAjouterLiaison(unsigned int uiPoint1, unsigned int uiPoint2);
+	void GRAModifierLiaison();
+	void GRARetirerLiaison();
+	void GRAVisualiserGraphe();
 };

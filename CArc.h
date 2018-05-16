@@ -7,7 +7,9 @@ private :
 	CSommet * pSOMDestination;
 public:
 	CArc();
+	CArc(CSommet * pSOMDestination);
 	~CArc();
-	void ajouterDestination();	
+	void ARCAjouterDestination(CSommet* SOMSommetParam);
+	int ARCObtenirNumero();
 };
 
