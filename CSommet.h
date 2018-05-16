@@ -2,15 +2,14 @@
 #include "CArc.h"
 #include <vector>
 
-
 using namespace std;
 
 class CSommet
 {
 private :
 	unsigned int uiSOMNumero;
-	vector<CArc> vARCSOMArrivant;
-	vector<CArc> vARCSOMPartant;
+	vector<CArc*> vARCSOMArrivant;
+	vector<CArc*> vARCSOMPartant;
 
 public:
 	CSommet();

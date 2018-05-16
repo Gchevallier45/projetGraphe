@@ -7,9 +7,9 @@ CGraphe::CGraphe()
 
 }
 
-
 CGraphe::~CGraphe()
 {
+
 }
 
 void CGraphe::GRAAjouterPoint(unsigned int uiNumero)
@@ -25,10 +25,9 @@ void CGraphe::GRAModifierPoint()
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 {
 	for (int i = 0; i < SOMlist.size(); i++) {
-		if (SOMlist[i].SOMObtenirNumero == uiPoint) {
+		if (SOMlist[i].SOMObtenirNumero() == uiPoint) {
 			SOMlist.erase(SOMlist.begin()+i);
-		}
-		
+		}	
 	}
 }
 

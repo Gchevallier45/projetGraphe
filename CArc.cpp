@@ -7,19 +7,19 @@ CArc::CArc()
 }
 
 
-CArc::CArc(CSommet* SOMSommetParam) {
-	ARCAjouterDestination(SOMSommetParam);
+CArc::CArc(CSommet* pSOMSommetParam) {
+	ARCAjouterDestination(pSOMSommetParam);
 }
 
 CArc::~CArc()
 {
 }
 
-void CArc::ARCAjouterDestination(CSommet* SOMSommetParam)
+void CArc::ARCAjouterDestination(CSommet* pSOMSommetParam)
 {
-	pSOMDestination = SOMSommetParam;
+	pSOMARCDestination = pSOMSommetParam;
 }
 
-int CArc::ARCObtenirNumero() {
-	return pSOMDestination->SOMObtenirNumero;
+CSommet* CArc::ARCObtenirSommet() {
+	return pSOMARCDestination;
 }
