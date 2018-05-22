@@ -27,6 +27,7 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 	for (int i = 0; i < SOMlist.size(); i++) {
 
 		if (SOMlist[i].SOMObtenirNumero() == uiPoint) {
+			SOMlist[i].SOMRetirerSommet();
 			SOMlist.erase(SOMlist.begin()+i);
 		}	
 	}
