@@ -7,7 +7,7 @@ using namespace std;
 class CGraphe
 {
 private:
-	vector<CSommet> SOMlist;
+	vector<CSommet> vSOMGRAlist;
 public:
 	CGraphe();
 	~CGraphe();

@@ -30,7 +30,7 @@ void CSommet::SOMAjouterArrivant(CSommet* pSOMArrivant)
 void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 {
 	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
-		if (pARCArrivant == vARCSOMArrivant[i]) {
+		if (pARCArrivant == &vARCSOMArrivant[i]) {
 			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}
 	}
@@ -40,7 +40,7 @@ void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 void CSommet::SOMRetirerToutArrivant(CSommet* pSOMPoint)
 {
 	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
-		if (pSOMPoint == vARCSOMArrivant[i]->ARCObtenirSommet) {
+		if (pSOMPoint == vARCSOMArrivant[i].ARCObtenirSommet) {
 			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}
 	}
@@ -52,10 +52,11 @@ void CSommet::SOMAjouterPartant(CSommet* pARCPartant)
 	pARCPartant->vARCSOMPartant.push_back(CArc(pARCPartant));
 }
 
+
 void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
 {
 	for (int i = 0; i < vARCSOMPartant.size(); i++) {
-		if (vARCSOMPartant[i] == pARCArrivant) {
+		if (&vARCSOMPartant[i] == pARCArrivant) {
 			vARCSOMPartant.erase(vARCSOMPartant.begin() + i);
 		}
 	}
@@ -65,8 +66,23 @@ void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
 void CSommet::SOMRetirerToutPartant(CSommet* pSOMPoint)
 {
 	for (int i = 0; i < vARCSOMPartant.size(); i++) {
-		if (pSOMPoint == vARCSOMPartant[i]->ARCObtenirSommet) {
+		if (pSOMPoint == vARCSOMPartant[i].ARCObtenirSommet) {
 			vARCSOMPartant.erase(vARCSOMPartant.begin() + i);
+		}
+	}
+}
+
+
+void CSommet::SOMAjouterPartant(CSommet* pSOMArrivant)
+{
+	vARCSOMArrivant.push_back(CArc(pSOMArrivant));
+}
+
+void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
+{
+	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
+		if (pARCArrivant == &vARCSOMArrivant[i]) {
+			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}
 	}
 }
@@ -75,10 +91,10 @@ void CSommet::SOMRetirerSommet(){
 
 	//retire les arcs présents dans les sommets liés au point qui se fait supprimer
 	for (unsigned int i = 0; i < vARCSOMArrivant.size(); i++) {
-		vARCSOMArrivant[i]->ARCObtenirSommet()->SOMRetirerToutArrivant(this);
+		vARCSOMArrivant[i].ARCObtenirSommet()->SOMRetirerToutArrivant(this);
 	}
 	for (unsigned int i = 0; i < vARCSOMArrivant.size(); i++) {
-		vARCSOMPartant[i]->ARCObtenirSommet()->SOMRetirerToutPartant(this);
+		vARCSOMPartant[i].ARCObtenirSommet()->SOMRetirerToutPartant(this);
 	}
 
 	//si besoin de supprimer les Arcs du sommet en court de suppression
@@ -92,9 +108,9 @@ void CSommet::SOMRetirerSommet(){
 
 void CSommet::SOMVisualiserSommet()
 {
-	cout << "Le point " << uiNumero << "est relié ";
-	for (int i = 0; i < pARCArrivant.size()-1; i++) {
-		cout << "au point " << pARCArrivant[i].ARCObtenirNumero() << " " << endl;
+	cout << "Le point " << uiSOMNumero << "est relié ";
+	for (int i = 0; i < vARCSOMArrivant.size()-1; i++) {
+		cout << "au point " << vARCSOMArrivant[i].ARCObtenirSommet() << " " << endl;
 	}
 	
 }
