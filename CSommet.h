@@ -18,8 +18,10 @@ public:
 	int SOMObtenirNumero();
 	void SOMAjouterArrivant(CSommet* pSOMArrivant);
 	void SOMRetirerArrivant(CArc* pARCArrivant);
+	void SOMRetirerToutArrivant(CSommet * pSOMPoint);
 	void SOMAjouterPartant(CSommet* pSOMArrivant);
 	void SOMRetirerPartant(CArc* pARCArrivant);
+	void SOMRetirerToutPartant(CSommet* pSOMPoint);
 	void SOMRetirerSommet();
 	void SOMVisualiserSommet();
 };

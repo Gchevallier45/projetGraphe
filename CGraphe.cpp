@@ -25,10 +25,10 @@ void CGraphe::GRAModifierPoint()
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-
 		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint) {
-			vSOMGRAlist.erase(vSOMGRAlist.begin()+ uiBoucle);
-		}	
+			vSOMGRAlist[uiBoucle].SOMRetirerSommet();//retire les arcs liés au point
+			vSOMGRAlist.erase(vSOMGRAlist.begin() + uiBoucle);//retire le point de la liste du graphe
+		}
 	}
 }
 
