@@ -16,11 +16,11 @@ public:
 	CSommet(unsigned int uiNumeroParam);
 	~CSommet();
 	int SOMObtenirNumero();
-	void SOMAjouterArrivant(CSommet* pSOMArrivant);
+	void SOMAjouterArrivant(CArc* pSOMArrivant);
 	void SOMRetirerArrivant(CArc* pARCArrivant);
 	void SOMRetirerToutArrivant(CSommet * pSOMPoint);
-	void SOMAjouterPartant(CSommet* pSOMArrivant);
-	void SOMRetirerPartant(CArc* pARCArrivant);
+	void SOMAjouterPartant(CArc* pSOMPartant);
+	void SOMRetirerPartant(CArc* pARCPartant);
 	void SOMRetirerToutPartant(CSommet* pSOMPoint);
 	void SOMRetirerSommet();
 	void SOMVisualiserSommet();

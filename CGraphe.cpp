@@ -4,22 +4,20 @@
 
 CGraphe::CGraphe()
 {
-
 }
 
 CGraphe::~CGraphe()
 {
-
 }
 
 void CGraphe::GRAAjouterPoint(unsigned int uiNumero)
 {
-	CSommet point(uiNumero);
-
+	vSOMGRAlist.push_back(CSommet(uiNumero));
 }
 
 void CGraphe::GRAModifierPoint()
 {
+
 }
 
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
@@ -32,18 +30,10 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 	}
 }
 
-void CGraphe::GRAAjouterLiaison(unsigned int uiPoint1, unsigned int uiPoint2)
+void CGraphe::GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee)
 {
-	CSommet *uiPlaceSommet1, *uiPlaceSommet2;
-	uiPlaceSommet1 = GRAObtenirSommet(uiPoint1);
-	uiPlaceSommet2 = GRAObtenirSommet(uiPoint2);
-
-	uiPlaceSommet1->SOMAjouterArrivant(uiPlaceSommet2);
-	uiPlaceSommet1->SOMAjouterPartant(uiPlaceSommet2);
-	
-	uiPlaceSommet2->SOMAjouterArrivant(uiPlaceSommet1);
-	uiPlaceSommet2->SOMAjouterPartant(uiPlaceSommet1);
-
+	SOMSommetDepart->SOMAjouterArrivant(&CArc(SOMSommetArrivee));
+	SOMSommetArrivee->SOMAjouterPartant(&CArc(SOMSommetArrivee));
 }
 
 CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroGraphe) {
@@ -55,12 +45,15 @@ CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroGraphe) {
 
 void CGraphe::GRAModifierLiaison()
 {
+
 }
 
 void CGraphe::GRARetirerLiaison()
 {
+
 }
 
 void CGraphe::GRAVisualiserGraphe()
 {
+
 }
