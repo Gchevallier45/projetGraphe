@@ -29,7 +29,7 @@ void CSommet::SOMAjouterArrivant(CSommet* pSOMArrivant)
 
 void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 {
-	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
 		if (pARCArrivant == &vARCSOMArrivant[i]) {
 			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
 		}

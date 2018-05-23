@@ -34,21 +34,23 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 
 void CGraphe::GRAAjouterLiaison(unsigned int uiPoint1, unsigned int uiPoint2)
 {
-	unsigned int uiPlaceSommet1, uiPlaceSommet2;
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint1) {
-			uiPlaceSommet1 = uiBoucle;
-		 }
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint2) {
-			uiPlaceSommet2 = uiBoucle;
-		}
-	}
-	vSOMGRAlist[uiPlaceSommet1].SOMAjouterArrivant(&vSOMGRAlist[uiPlaceSommet2]);
-	vSOMGRAlist[uiPlaceSommet1].SOMAjouterPartant(&vSOMGRAlist[uiPlaceSommet2]);
-	
-	vSOMGRAlist[uiPlaceSommet2].SOMAjouterArrivant(&vSOMGRAlist[uiPlaceSommet1]);
-	vSOMGRAlist[uiPlaceSommet2].SOMAjouterPartant(&vSOMGRAlist[uiPlaceSommet1]);
+	CSommet *uiPlaceSommet1, *uiPlaceSommet2;
+	uiPlaceSommet1 = GRAObtenirSommet(uiPoint1);
+	uiPlaceSommet2 = GRAObtenirSommet(uiPoint2);
 
+	uiPlaceSommet1->SOMAjouterArrivant(uiPlaceSommet2);
+	uiPlaceSommet1->SOMAjouterPartant(uiPlaceSommet2);
+	
+	uiPlaceSommet2->SOMAjouterArrivant(uiPlaceSommet1);
+	uiPlaceSommet2->SOMAjouterPartant(uiPlaceSommet1);
+
+}
+
+CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroGraphe) {
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		if (vSOMGRAlist[uiNumeroGraphe].SOMObtenirNumero() == uiNumeroGraphe)
+			return &vSOMGRAlist[uiNumeroGraphe];
+	}
 }
 
 void CGraphe::GRAModifierLiaison()
