@@ -22,16 +22,16 @@ int CSommet::SOMObtenirNumero() {
 	return uiSOMNumero;
 }
 
-void CSommet::SOMAjouterArrivant(CSommet* pSOMArrivant)
+void CSommet::SOMAjouterArrivant(CArc* pSOMArrivant)
 {
-	vARCSOMArrivant.push_back(CArc(pSOMArrivant));
+	vARCSOMArrivant.push_back(*pSOMArrivant);
 }
 
 void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		if (pARCArrivant == &vARCSOMArrivant[i]) {
-			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
+		if (pARCArrivant == &vARCSOMArrivant[uiBoucle]) {
+			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
 		}
 	}
 	
@@ -39,25 +39,25 @@ void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
 //à voir si on garde pas que le retrait à partir de point parce que c'est plus simple que le retrait à partir d'arc on dirait
 void CSommet::SOMRetirerToutArrivant(CSommet* pSOMPoint)
 {
-	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
-		if (pSOMPoint == vARCSOMArrivant[i].ARCObtenirSommet) {
-			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
+		if (pSOMPoint == vARCSOMArrivant[uiBoucle].ARCObtenirSommet()) {
+			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
 		}
 	}
 
 }
 
-void CSommet::SOMAjouterPartant(CSommet* pARCPartant)
+void CSommet::SOMAjouterPartant(CArc* pARCPartant)
 {
-	pARCPartant->vARCSOMPartant.push_back(CArc(pARCPartant));
+	vARCSOMPartant.push_back(*pARCPartant);
 }
 
 
-void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
+void CSommet::SOMRetirerPartant(CArc* pARCPartant)
 {
-	for (int i = 0; i < vARCSOMPartant.size(); i++) {
-		if (&vARCSOMPartant[i] == pARCArrivant) {
-			vARCSOMPartant.erase(vARCSOMPartant.begin() + i);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
+		if (&vARCSOMPartant[uiBoucle] == pARCPartant) {
+			vARCSOMPartant.erase(vARCSOMPartant.begin() + uiBoucle);
 		}
 	}
 }
@@ -65,24 +65,9 @@ void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
 
 void CSommet::SOMRetirerToutPartant(CSommet* pSOMPoint)
 {
-	for (int i = 0; i < vARCSOMPartant.size(); i++) {
-		if (pSOMPoint == vARCSOMPartant[i].ARCObtenirSommet) {
-			vARCSOMPartant.erase(vARCSOMPartant.begin() + i);
-		}
-	}
-}
-
-
-void CSommet::SOMAjouterPartant(CSommet* pSOMArrivant)
-{
-	vARCSOMArrivant.push_back(CArc(pSOMArrivant));
-}
-
-void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
-{
-	for (int i = 0; i < vARCSOMArrivant.size(); i++) {
-		if (pARCArrivant == &vARCSOMArrivant[i]) {
-			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + i);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
+		if (pSOMPoint == vARCSOMPartant[uiBoucle].ARCObtenirSommet()) {
+			vARCSOMPartant.erase(vARCSOMPartant.begin() + uiBoucle);
 		}
 	}
 }
@@ -90,11 +75,11 @@ void CSommet::SOMRetirerPartant(CArc* pARCArrivant)
 void CSommet::SOMRetirerSommet(){
 
 	//retire les arcs présents dans les sommets liés au point qui se fait supprimer
-	for (unsigned int i = 0; i < vARCSOMArrivant.size(); i++) {
-		vARCSOMArrivant[i].ARCObtenirSommet()->SOMRetirerToutArrivant(this);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
+		vARCSOMArrivant[uiBoucle].ARCObtenirSommet()->SOMRetirerToutArrivant(this);
 	}
-	for (unsigned int i = 0; i < vARCSOMArrivant.size(); i++) {
-		vARCSOMPartant[i].ARCObtenirSommet()->SOMRetirerToutPartant(this);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
+		vARCSOMPartant[uiBoucle].ARCObtenirSommet()->SOMRetirerToutPartant(this);
 	}
 
 	//si besoin de supprimer les Arcs du sommet en court de suppression
@@ -109,8 +94,8 @@ void CSommet::SOMRetirerSommet(){
 void CSommet::SOMVisualiserSommet()
 {
 	cout << "Le point " << uiSOMNumero << "est relié ";
-	for (int i = 0; i < vARCSOMArrivant.size()-1; i++) {
-		cout << "au point " << vARCSOMArrivant[i].ARCObtenirSommet() << " " << endl;
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size()-1; uiBoucle++) {
+		cout << "au point " << vARCSOMArrivant[uiBoucle].ARCObtenirSommet() << " " << endl;
 	}
 	
 }

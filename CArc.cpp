@@ -17,5 +17,4 @@ void CArc::ARCAjouterDestination(CSommet* pSOMSommetParam)
 
 CSommet* CArc::ARCObtenirSommet() {
 	return pSOMARCDestination;
-
 }
