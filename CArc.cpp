@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "CArc.h"
 
-
-CArc::CArc()
-{
-}
-
-
 CArc::CArc(CSommet* pSOMSommetParam) {
 	ARCAjouterDestination(pSOMSommetParam);
 }

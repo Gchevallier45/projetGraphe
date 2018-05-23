@@ -18,4 +18,5 @@ public:
 	void GRAModifierLiaison();
 	void GRARetirerLiaison();
 	void GRAVisualiserGraphe();
+	CSommet* GRAObtenirSommet(unsigned int uiNumeroGraphe);
 };
