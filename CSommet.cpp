@@ -44,7 +44,6 @@ void CSommet::SOMRetirerToutArrivant(CSommet* pSOMPoint)
 			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
 		}
 	}
-
 }
 
 void CSommet::SOMAjouterPartant(CArc* pARCPartant)
