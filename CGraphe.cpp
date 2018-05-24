@@ -32,8 +32,8 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 
 void CGraphe::GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee)
 {
-	SOMSommetDepart->SOMAjouterArrivant(&CArc(SOMSommetArrivee));
-	SOMSommetArrivee->SOMAjouterPartant(&CArc(SOMSommetArrivee));
+	SOMSommetDepart->SOMAjouterPartant(&CArc(SOMSommetArrivee));
+	SOMSommetArrivee->SOMAjouterArrivant(&CArc(SOMSommetArrivee));
 }
 
 CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroGraphe) {
