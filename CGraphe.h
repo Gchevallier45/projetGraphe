@@ -16,7 +16,7 @@ public:
 	void GRARetirerPoint(unsigned int uiPoint);
 	void GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
 	void GRAModifierLiaison();
-	void GRARetirerLiaison();
+	void GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
 	void GRAVisualiserGraphe();
 	CSommet* GRAObtenirSommet(unsigned int uiNumeroGraphe);
 };
