@@ -48,14 +48,16 @@ void CGraphe::GRAModifierLiaison()
 
 }
 
-void CGraphe::GRARetirerLiaison()
+void CGraphe::GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee)
 {
-
+	SOMSommetDepart->SOMRetirerToutPartant(SOMSommetArrivee);
+	SOMSommetArrivee->SOMRetirerToutArrivant(SOMSommetDepart);
 }
 
 void CGraphe::GRAVisualiserGraphe()
 {
-
-
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		vSOMGRAlist[uiBoucle].SOMVisualiserSommet;
+	}
 
 }

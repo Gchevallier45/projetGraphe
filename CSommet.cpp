@@ -94,7 +94,7 @@ void CSommet::SOMVisualiserSommet()
 {
 	unsigned int uiBoucle = 0;
 	if (vARCSOMArrivant.size() > 0) {
-		cout << "Point(s) reliés venant vers " << uiSOMNumero<< " sont : "<< vARCSOMArrivant[uiBoucle].ARCObtenirSommet();
+		cout << "Point(s) venant vers " << uiSOMNumero<< " sont : "<< vARCSOMArrivant[uiBoucle].ARCObtenirSommet();
 		while (uiBoucle < vARCSOMArrivant.size()) {
 			uiBoucle++;
 			cout << ", " << vARCSOMArrivant[uiBoucle].ARCObtenirSommet();
@@ -103,7 +103,7 @@ void CSommet::SOMVisualiserSommet()
 	
 	uiBoucle = 0;
 	if (vARCSOMPartant.size() > 0) {
-		cout << "Point(s) reliés partant de " << uiSOMNumero << " sont : " << vARCSOMPartant[uiBoucle].ARCObtenirSommet();
+		cout << "Point(s) partant de " << uiSOMNumero << " sont : " << vARCSOMPartant[uiBoucle].ARCObtenirSommet();
 		while (uiBoucle < vARCSOMPartant.size()) {
 			uiBoucle++;
 			cout << ", " << vARCSOMPartant[uiBoucle].ARCObtenirSommet();
