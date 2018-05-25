@@ -92,9 +92,21 @@ void CSommet::SOMRetirerSommet(){
 
 void CSommet::SOMVisualiserSommet()
 {
-	cout << "Le point " << uiSOMNumero << "est relié ";
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size()-1; uiBoucle++) {
-		cout << "au point " << vARCSOMArrivant[uiBoucle].ARCObtenirSommet() << " " << endl;
+	unsigned int uiBoucle = 0;
+	if (vARCSOMArrivant.size() > 0) {
+		cout << "Point(s) reliés venant vers " << uiSOMNumero<< " sont : "<< vARCSOMArrivant[uiBoucle].ARCObtenirSommet();
+		while (uiBoucle < vARCSOMArrivant.size()) {
+			uiBoucle++;
+			cout << ", " << vARCSOMArrivant[uiBoucle].ARCObtenirSommet();
+		}
 	}
 	
+	uiBoucle = 0;
+	if (vARCSOMPartant.size() > 0) {
+		cout << "Point(s) reliés partant de " << uiSOMNumero << " sont : " << vARCSOMPartant[uiBoucle].ARCObtenirSommet();
+		while (uiBoucle < vARCSOMPartant.size()) {
+			uiBoucle++;
+			cout << ", " << vARCSOMPartant[uiBoucle].ARCObtenirSommet();
+		}
+	}	
 }
