@@ -22,5 +22,6 @@ public:
 	void GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
 	CSommet* GRAObtenirSommet(unsigned int uiNumeroSommet);
 	const vector<CSommet>& GRAObtenirListeSommets();
+	bool GRASommetExiste(CSommet * SOMSommet);
 	friend ostream& operator<<(ostream& os, CGraphe &GRAParam);
 };

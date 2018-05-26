@@ -28,6 +28,7 @@ public:
 	void SOMAjouterPartant(CArc* pSOMPartant);
 	void SOMRetirerPartant(CArc* pARCPartant);
 	void SOMRetirerToutPartant(CSommet* pSOMPoint);
+	bool SOMArcExiste(CSommet *SOMSommetArrivee);
 	const vector<CArc>& SOMObtenirArcsPartant();
 	const vector<CArc>& SOMObtenirArcsArrivant();
 	friend ostream& operator<<(ostream& os, CSommet &SOMParam);
