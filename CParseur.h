@@ -6,7 +6,7 @@
 #include <fstream>
 
 #include "CException.h"
-//#include "CGraphe.h"
+#include "CGraphe.h"
 
 // -----------------------------------------------------------------------------------------------------
 // Classe CParseur
@@ -29,12 +29,12 @@ using namespace std;
 
 class CParseur
 {
-	//CGraphe GRAPARgraphe;
+	CGraphe GRAPARgraphe;
 	ifstream ifPARFichier;
 public:
 	CParseur();
 	CParseur(string sCheminFichier);
-	//CGraphe GRAPARGetGraphe();
+	CGraphe& PARGetGraphe();
 };
 
 #endif //CPARSEUR_H

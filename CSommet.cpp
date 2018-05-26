@@ -66,27 +66,29 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	vector<CArc> vARCPartant = SOMParam.SOMObtenirArcsPartant();
 
 	os << "Point " << SOMParam.SOMObtenirNumero() << endl;
+
 	unsigned int uiBoucle = 0;
 	if (vARCArrivant.size() > 0) {
 		os << "Point(s) venant vers " << SOMParam.SOMObtenirNumero() << " sont : "
-			<< vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
-		uiBoucle++;
-		while (uiBoucle < vARCArrivant.size()) {
-			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
+			<< vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+		while (uiBoucle < vARCArrivant.size()-1) {
 			uiBoucle++;
+			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+
 		}
 	}
+	os << endl;
 	
 	uiBoucle = 0;
 	if (vARCPartant.size() > 0) {
-		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : "
-			<< vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
-		uiBoucle++;
-		while (uiBoucle < vARCPartant.size()) {
-			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
+		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " 
+			<< vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+		while (uiBoucle < vARCPartant.size()-1) {
 			uiBoucle++;
+			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
 		}
 	}	
+	os << endl;
 
 	return os;
 }

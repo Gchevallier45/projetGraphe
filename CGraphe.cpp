@@ -57,7 +57,7 @@ void CGraphe::GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArri
 	}
 
 	SOMSommetDepart->SOMAjouterPartant(&CArc(SOMSommetArrivee));
-	SOMSommetArrivee->SOMAjouterArrivant(&CArc(SOMSommetArrivee));
+	SOMSommetArrivee->SOMAjouterArrivant(&CArc(SOMSommetDepart));
 }
 
 /**
@@ -127,7 +127,7 @@ ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 	os << "Vu du Graphe" << endl;
 
 	for (unsigned int uiBoucle = 0; uiBoucle < listeSommets.size(); uiBoucle++) {
-		os << listeSommets[uiBoucle] << endl;
+		os << listeSommets[uiBoucle];
 	}
 	return os;
 }
