@@ -90,6 +90,8 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	}	
 	os << endl;
 
+	cout << "finsommet" << endl;
+
 	return os;
 }
 

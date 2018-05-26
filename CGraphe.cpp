@@ -129,6 +129,8 @@ ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 	for (unsigned int uiBoucle = 0; uiBoucle < listeSommets.size(); uiBoucle++) {
 		os << listeSommets[uiBoucle];
 	}
+	cout << "fingraphe" << endl;
+
 	return os;
 }
 
