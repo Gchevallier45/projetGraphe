@@ -20,7 +20,6 @@ private :
 
 public:
 	CSommet(unsigned int uiNumeroParam);
-	~CSommet();
 	int SOMObtenirNumero();
 	void SOMAjouterArrivant(CArc* pSOMArrivant);
 	void SOMRetirerArrivant(CArc* pARCArrivant);
@@ -28,6 +27,7 @@ public:
 	void SOMAjouterPartant(CArc* pSOMPartant);
 	void SOMRetirerPartant(CArc* pARCPartant);
 	void SOMRetirerToutPartant(CSommet* pSOMPoint);
+	void SOMRetirerSommet();
 	bool SOMArcExiste(CSommet *SOMSommetArrivee);
 	void SOMInverserLiens();
 	const vector<CArc>& SOMObtenirArcsPartant();

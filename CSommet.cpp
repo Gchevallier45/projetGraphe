@@ -164,8 +164,7 @@ void CSommet::SOMInverserLiens()
 /**
  * Détruit un sommet ainsi que ses liaisons arrivantes et partantes
  */
-CSommet::~CSommet() {
-	//void CSommet::SOMRetirerSommet(){
+void CSommet::SOMRetirerSommet(){
 	//Ca correspond pas mal a un destructeur la fonction du coup j'ai mis le code dans le destructeur
 
 	//retire les arcs présents dans les sommets liés au point qui se fait supprimer

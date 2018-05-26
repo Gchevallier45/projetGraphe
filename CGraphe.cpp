@@ -129,19 +129,6 @@ const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
  * @param GRAParam le graphe à afficher
  * @return le flux passé en paramètre
  */
-
-void CGraphe::GRAVisualiser() {
-	
-	//vector<CSommet> listeSommets = vSOMGRAlist.GRAObtenirListeSommets();
-
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-			cout << vSOMGRAlist[uiBoucle];
-	}
-
-
-}
-
-
 ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 //void CGraphe::GRAVisualiserGraphe()
 	vector<CSommet> listeSommets = GRAParam.GRAObtenirListeSommets();
