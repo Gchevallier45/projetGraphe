@@ -106,6 +106,14 @@ CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
 	return NULL;
 }
 
+void CGraphe::GRAInverserGraphe()
+{
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		vSOMGRAlist[uiBoucle].SOMInverserLiens();
+	}
+	
+}
+
 /**
  * Retourne une liste ! en lecture seule ! des sommets du graphe
  * @param vSOMGRAlist la liste des sommets du graphe
@@ -121,6 +129,19 @@ const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
  * @param GRAParam le graphe à afficher
  * @return le flux passé en paramètre
  */
+
+void CGraphe::GRAVisualiser() {
+	
+	//vector<CSommet> listeSommets = vSOMGRAlist.GRAObtenirListeSommets();
+
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+			cout << vSOMGRAlist[uiBoucle];
+	}
+
+
+}
+
+
 ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 //void CGraphe::GRAVisualiserGraphe()
 	vector<CSommet> listeSommets = GRAParam.GRAObtenirListeSommets();
@@ -143,3 +164,4 @@ bool CGraphe::GRASommetExiste(CSommet *SOMSommet) {
 	}
 	return bExiste;
 }
+

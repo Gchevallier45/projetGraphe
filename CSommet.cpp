@@ -65,7 +65,7 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	vector<CArc> vARCArrivant = SOMParam.SOMObtenirArcsArrivant();
 	vector<CArc> vARCPartant = SOMParam.SOMObtenirArcsPartant();
 
-	os << "Point " << SOMParam.SOMObtenirNumero() << endl;
+	os << "Point " << SOMParam.SOMObtenirNumero()<< endl;;
 
 	unsigned int uiBoucle = 0;
 	if (vARCArrivant.size() > 0) {
@@ -76,8 +76,9 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
 
 		}
+		os << endl;
 	}
-	os << endl;
+	
 	
 	uiBoucle = 0;
 	if (vARCPartant.size() > 0) {
@@ -87,8 +88,8 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 			uiBoucle++;
 			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
 		}
+		os << endl;
 	}	
-	os << endl;
 
 	return os;
 }
@@ -149,6 +150,13 @@ bool CSommet::SOMArcExiste(CSommet * SOMSommetArrivee)
 	}
 
 	return bExiste;
+}
+
+void CSommet::SOMInverserLiens()
+{
+	vector<CArc> vARCTampon = this->SOMObtenirArcsPartant();
+	vARCSOMPartant = vARCSOMArrivant;
+	vARCSOMArrivant = vARCTampon;
 }
 
 /**
