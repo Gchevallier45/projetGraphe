@@ -78,7 +78,6 @@ CParseur::CParseur(string sCheminFichier)
 						unsigned int uiLaison[2];
 						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
 							double test = strtod(pcEnd, &pcEnd);
-							cout << test;
 							uiLaison[uiBoucle] = test;
 						}
 						cout << uiLaison[0] << uiLaison[1] << endl;
