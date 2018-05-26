@@ -65,7 +65,7 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	vector<CArc> vARCArrivant = SOMParam.SOMObtenirArcsArrivant();
 	vector<CArc> vARCPartant = SOMParam.SOMObtenirArcsPartant();
 
-	os << SOMParam.SOMObtenirNumero();
+	os << "Point " << SOMParam.SOMObtenirNumero();
 
 	unsigned int uiBoucle = 0;
 	if (vARCArrivant.size() > 0) {
