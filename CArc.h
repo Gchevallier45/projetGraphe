@@ -1,6 +1,11 @@
 #pragma once
 
-class CSommet; //Permet d'utiliser d'avoir une dépendance circulaire
+class CSommet; //Permet d'utiliser d'avoir une dépendance circulaire entre CArc et CSommet
+
+// -------------------------------------------------------------------------------------------
+// Classe CArc
+// Implémente la structure d'un objet arc représentant la liaison entre deux sommets du graphe
+// -------------------------------------------------------------------------------------------
 
 class CArc
 {
@@ -9,8 +14,8 @@ private :
 
 public:
 	CArc(CSommet *pSOMDestination);
-	~CArc();
-	void ARCAjouterDestination(CSommet* pSOMSommetParam);
+
+	void ARCModifierDestination(CSommet* pSOMSommetParam);
 	CSommet *ARCObtenirSommet();
 };
 

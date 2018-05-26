@@ -1,8 +1,14 @@
 #pragma once
 #include "CArc.h"
 #include <vector>
+#include <iostream>
 
 using namespace std;
+
+// -------------------------------------------------------------------------------------------
+// Classe CSommet
+// Implémente la structure d'un objet sommet du graphe
+// -------------------------------------------------------------------------------------------
 
 class CSommet
 {
@@ -10,9 +16,9 @@ private :
 	unsigned int uiSOMNumero;
 	vector<CArc> vARCSOMArrivant;
 	vector<CArc> vARCSOMPartant;
+	CSommet(); //Désactive le constructeur par défaut et oblige l'utilisateur à construire un sommet avec un numéro
 
 public:
-	CSommet();
 	CSommet(unsigned int uiNumeroParam);
 	~CSommet();
 	int SOMObtenirNumero();
@@ -22,7 +28,8 @@ public:
 	void SOMAjouterPartant(CArc* pSOMPartant);
 	void SOMRetirerPartant(CArc* pARCPartant);
 	void SOMRetirerToutPartant(CSommet* pSOMPoint);
-	void SOMRetirerSommet();
-	void SOMVisualiserSommet();
+	const vector<CArc>& SOMObtenirArcsPartant();
+	const vector<CArc>& SOMObtenirArcsArrivant();
+	friend ostream& operator<<(ostream& os, CSommet &SOMParam);
 };
 

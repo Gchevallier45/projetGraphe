@@ -4,19 +4,23 @@
 
 using namespace std;
 
+// -------------------------------------------------------------------------------------------
+// Classe CGraphe
+// Implémente la structure du graphe
+// -------------------------------------------------------------------------------------------
+
 class CGraphe
 {
 private:
 	vector<CSommet> vSOMGRAlist;
 public:
-	CGraphe();
-	~CGraphe();
 	void GRAAjouterPoint(unsigned int uiNumero);
 	void GRAModifierPoint();
 	void GRARetirerPoint(unsigned int uiPoint);
 	void GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
 	void GRAModifierLiaison();
 	void GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
-	void GRAVisualiserGraphe();
-	CSommet* GRAObtenirSommet(unsigned int uiNumeroGraphe);
+	CSommet* GRAObtenirSommet(unsigned int uiNumeroSommet);
+	const vector<CSommet>& GRAObtenirListeSommets();
+	friend ostream& operator<<(ostream& os, CSommet &GRAParam);
 };
