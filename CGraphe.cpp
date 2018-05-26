@@ -3,9 +3,15 @@
 
 /**
 */
-void CGraphe::GRAAjouterPoint(unsigned int uiNumero)
+void CGraphe::GRAAjouterPoint(unsigned int uiPoint)
 {
-	vSOMGRAlist.push_back(CSommet(uiNumero));
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint) {
+			cout << "Point déjà existant"<<endl;
+			return;
+		}
+	}
+	vSOMGRAlist.push_back(CSommet(uiPoint));
 }
 
 /**
@@ -87,6 +93,8 @@ const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
 ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 //void CGraphe::GRAVisualiserGraphe()
 	vector<CSommet> listeSommets = GRAParam.GRAObtenirListeSommets();
+	os << "Vu du Graphe" << endl;
+
 	for (unsigned int uiBoucle = 0; uiBoucle < listeSommets.size(); uiBoucle++) {
 		os << listeSommets[uiBoucle] << endl;
 	}
