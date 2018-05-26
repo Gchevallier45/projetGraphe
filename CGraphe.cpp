@@ -69,8 +69,8 @@ void CGraphe::GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArri
  */
 CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
 	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiNumeroSommet].SOMObtenirNumero() == uiNumeroSommet)
-			return &vSOMGRAlist[uiNumeroSommet];
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiNumeroSommet)
+			return &vSOMGRAlist[uiBoucle];
 	}
 	return NULL;
 }

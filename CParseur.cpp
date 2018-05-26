@@ -72,15 +72,17 @@ CParseur::CParseur(string sCheminFichier)
 					if (sommetParse == false) {
 						double test = strtod(pcEnd, &pcEnd);
 						cout << test << endl;
-						//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
+						GRAPARgraphe.GRAAjouterPoint(test);
 					}
 					else {
+						unsigned int uiLaison[2];
 						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
 							double test = strtod(pcEnd, &pcEnd);
 							cout << test;
-							//MATPARmatrice.MATSetElement(uiLigne - 4,uiBoucle,test);
+							uiLaison[uiBoucle] = test;
 						}
-						cout << endl;
+						cout << uiLaison[0] << uiLaison[1] << endl;
+						GRAPARgraphe.GRAAjouterLiaison(GRAPARgraphe.GRAObtenirSommet(uiLaison[0]), GRAPARgraphe.GRAObtenirSommet(uiLaison[1]));
 					}
 					break;
 				}
@@ -98,7 +100,7 @@ CParseur::CParseur(string sCheminFichier)
  * Retourne une référence de l'objet CGraphe contenant le graphe parsé par le parseur
  * @return l'objet CGraphe contenant le graphe présent dans le fichier
  */
-/*CGraphe& CParseur::PARGetGraphe()
+CGraphe& CParseur::PARGetGraphe()
 {
 	return GRAPARgraphe;
-}*/
+}

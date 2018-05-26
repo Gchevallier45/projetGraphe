@@ -69,7 +69,7 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 
 	unsigned int uiBoucle = 0;
 	if (vARCArrivant.size() > 0) {
-		os << "Point(s) venant vers " << SOMParam.SOMObtenirNumero() << " sont : "<< vARCArrivant[uiBoucle].ARCObtenirSommet() << endl;
+		os << "Point(s) venant vers " << SOMParam.SOMObtenirNumero() << " sont : "<< vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
 		while (uiBoucle < vARCArrivant.size()) {
 			uiBoucle++;
 			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
@@ -78,7 +78,7 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	
 	uiBoucle = 0;
 	if (vARCPartant.size() > 0) {
-		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " << vARCPartant[uiBoucle].ARCObtenirSommet() << endl;
+		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
 		while (uiBoucle < vARCPartant.size()) {
 			uiBoucle++;
 			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero() << endl;
