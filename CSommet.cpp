@@ -161,6 +161,11 @@ void CSommet::SOMInverserLiens()
 	vARCSOMArrivant = vARCTampon;
 }
 
+void CSommet::SOMModifierNumero(unsigned int uiNumero)
+{
+	uiSOMNumero = uiNumero;
+}
+
 /**
  * Détruit un sommet ainsi que ses liaisons arrivantes et partantes
  */

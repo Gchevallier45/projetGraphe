@@ -30,6 +30,7 @@ public:
 	void SOMRetirerSommet();
 	bool SOMArcExiste(CSommet *SOMSommetArrivee);
 	void SOMInverserLiens();
+	void SOMModifierNumero(unsigned int uiNumero);
 	const vector<CArc>& SOMObtenirArcsPartant();
 	const vector<CArc>& SOMObtenirArcsArrivant();
 	friend ostream& operator<<(ostream& os, CSommet &SOMParam);

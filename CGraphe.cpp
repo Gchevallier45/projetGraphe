@@ -14,9 +14,25 @@ void CGraphe::GRAAjouterPoint(unsigned int uiPoint)
 
 /**
 */
-void CGraphe::GRAModifierPoint()
+void CGraphe::GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres)
 {
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNumeroAvant)) == false) {
+		cout << "Le point " << uiNumeroAvant << " n'existe pas" << endl;
+		return;
+	}
 
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNumeroApres))) {
+		cout << "Le point " << uiNumeroApres << " existe deja" << endl;
+		return;
+	}
+	
+	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiNumeroAvant) {
+			vSOMGRAlist[uiBoucle].SOMModifierNumero(uiNumeroApres);//retire le point de la liste du graphe
+			break;
+		}
+	}
+	
 }
 
 /**
@@ -60,12 +76,44 @@ void CGraphe::GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArri
 	SOMSommetArrivee->SOMAjouterArrivant(&CArc(SOMSommetDepart));
 }
 
-/**
- */
-void CGraphe::GRAModifierLiaison()
+void CGraphe::GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart)
 {
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetDepart)) == false) {
+		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
+		return;
+	}
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetArrivee)) == false) {
+		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
+		return;
+	}
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNewSommetDepart))) {
+		cout << "Le point " << uiNewSommetDepart << " existe deja" << endl;
+		return;
+	}
+
+	GRARetirerLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
+	GRAAjouterLiaison(this->GRAObtenirSommet(uiNewSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
 
 }
+
+void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee)
+{
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetDepart)) == false) {
+		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
+		return;
+	}
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetArrivee)) == false) {
+		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
+		return;
+	}
+	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNewSommetArrivee))) {
+		cout << "Le point " << uiNewSommetArrivee << " existe deja" << endl;
+		return;
+	}
+	GRARetirerLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
+	GRAAjouterLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiNewSommetArrivee));
+}
+
 
 /**
  * Retire la liaison entre deux sommets dans le graphe 
