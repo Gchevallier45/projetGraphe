@@ -2,58 +2,57 @@
 #include "CGraphe.h"
 
 /**
-* Méthode permettant d'ajouter un CSommet au CGraphe
-* @Param uiPoint le numéro que prendra le CSommet
-*/
+ * Méthode permettant d'ajouter un CSommet au CGraphe
+ * @param uiPoint le numéro que prendra le CSommet
+ */
 void CGraphe::GRAAjouterPoint(unsigned int uiPoint)
 {
 	if (GRASommetExiste(uiPoint)) {
-		cout << "Le point " << uiPoint << " existe deja" << endl;
-		return;
+		throw CException("Le point " + to_string(uiPoint) + " existe deja");
 	}
-	vSOMGRAlist.push_back(CSommet(uiPoint));
+	else {
+		vSOMGRAlist.push_back(CSommet(uiPoint));
+	}
 }
 
 /**
-* Méthode permettant de modifier le numéro d'un CSommet
-* @Param uiNumeroAvant le numéro du CSommet à changer
-* @Param uiNumeroApres le numéro que prendra le CSommet
-*/
+ * Méthode permettant de modifier le numéro d'un CSommet
+ * @param uiNumeroAvant le numéro du CSommet à changer
+ * @param uiNumeroApres le numéro que prendra le CSommet
+ */
 void CGraphe::GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres)
 {
 	if (GRASommetExiste(uiNumeroAvant) == false) {
-		cout << "Le point " << uiNumeroAvant << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiNumeroAvant) + " n'existe pas");
 	}
-
-	if (GRASommetExiste(uiNumeroApres)) {
-		cout << "Le point " << uiNumeroApres << " existe deja" << endl;
-		return;
+	else if (GRASommetExiste(uiNumeroApres)) {
+		throw CException("Le point " + to_string(uiNumeroApres) + " existe deja");
 	}
-
-	for (CSommet &SOMBoucle : vSOMGRAlist) {
-		if (SOMBoucle.SOMObtenirNumero() == uiNumeroAvant) {
-			SOMBoucle.SOMModifierNumero(uiNumeroApres);//retire le point de la liste du graphe
-			break;
+	else {
+		for (CSommet &SOMBoucle : vSOMGRAlist) {
+			if (SOMBoucle.SOMObtenirNumero() == uiNumeroAvant) {
+				SOMBoucle.SOMModifierNumero(uiNumeroApres);//retire le point de la liste du graphe
+				break;
+			}
 		}
 	}
-	
 }
 
 /**
-* Méthode permettant de retirer un point du CGraphe
-* @Param uiPoint le numéro du point à retirer
-*/
+ * Méthode permettant de retirer un point du CGraphe
+ * @param uiPoint le numéro du point à retirer
+ */
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 {
 	if (GRASommetExiste(uiPoint) == false) {
-		cout << "Le point " << uiPoint << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiPoint) + " n'existe pas");
 	}
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint){
-			vSOMGRAlist.erase(vSOMGRAlist.begin() + uiBoucle);//retire le point de la liste du graphe
-			break;
+	else {
+		for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
+			if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint) {
+				vSOMGRAlist.erase(vSOMGRAlist.begin() + uiBoucle);//retire le point de la liste du graphe
+				break;
+			}
 		}
 	}
 }
@@ -66,78 +65,72 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 void CGraphe::GRAAjouterLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee)
 {
 	if (GRASommetExiste(uiSommetDepart) == false) {
-		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiSommetArrivee) == false) {
-		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
-		return;
+	else if (GRASommetExiste(uiSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
 	}
+	else {
+		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
+		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
 
-	CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
-	CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
-
-	if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee)) {
-		cout << "La liaison du point " << SOMSommetDepart.SOMObtenirNumero() << " vers le sommet "
-			<< SOMSommetArrivee.SOMObtenirNumero() << " existe deja" << endl;
-		return;
+		if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee)) {
+			throw CException("La liaison du point " + to_string(SOMSommetDepart.SOMObtenirNumero()) + " vers le sommet "
+				+ to_string(SOMSommetArrivee.SOMObtenirNumero()) + " existe deja");
+		}
+		else {
+			SOMSommetDepart.SOMAjouterPartant(SOMSommetArrivee);
+			SOMSommetArrivee.SOMAjouterArrivant(SOMSommetDepart);
+		}
 	}
-
-	SOMSommetDepart.SOMAjouterPartant(SOMSommetArrivee);
-	SOMSommetArrivee.SOMAjouterArrivant(SOMSommetDepart);
 }
 
 
 /**
-* Méthode permettant la modification de la partie départ d'un lien. Il faut que tous les sommets passés en paramètre existe
-* @Param uiSommetDepart le numéro du sommet de départ d'un liaison
-* @Param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
-* @Param uiNewSommetDepart le numéro du nouveau sommet de départ de la liaison des sommet précédents
-*/
+ * Méthode permettant la modification de la partie départ d'un lien. Il faut que tous les sommets passés en paramètre existe
+ * @param uiSommetDepart le numéro du sommet de départ d'un liaison
+ * @param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
+ * @param uiNewSommetDepart le numéro du nouveau sommet de départ de la liaison des sommet précédents
+ */
 void CGraphe::GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart)
 {
 	if (GRASommetExiste(uiSommetDepart) == false) {
-		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiSommetArrivee) == false) {
-		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
-		return;
+	else if (GRASommetExiste(uiSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiNewSommetDepart) == false) {
-		cout << "Le point " << uiNewSommetDepart << " n'existe pas" << endl;
-		return;
+	else if (GRASommetExiste(uiNewSommetDepart) == false) {
+		throw CException("Le point " + to_string(uiNewSommetDepart) + " n'existe pas");
 	}
-
-
-	GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
-	GRAAjouterLiaison(uiNewSommetDepart, uiSommetArrivee);
+	else {
+		GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
+		GRAAjouterLiaison(uiNewSommetDepart, uiSommetArrivee);
+	}
 
 }
 
 /**
-* Méthode permettant la modification de la partie arrivée d'un lien. Il faut que tous les sommets passés en paramètre existe
-* @Param uiSommetDepart le numéro du sommet de départ d'un liaison
-* @Param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
-* @Param uiNewSommetArrivee le numéro du nouveau sommet de d'arrivée de la liaison des sommet précédents
-*/
+ * Méthode permettant la modification de la partie arrivée d'un lien. Il faut que tous les sommets passés en paramètre existe
+ * @param uiSommetDepart le numéro du sommet de départ d'un liaison
+ * @param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
+ * @param uiNewSommetArrivee le numéro du nouveau sommet de d'arrivée de la liaison des sommet précédents
+ */
 void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee)
 {
 	if (GRASommetExiste(uiSommetDepart) == false) {
-		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
+	} 
+	else if (GRASommetExiste(uiSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiSommetArrivee) == false) {
-		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
-		return;
+	else if (GRASommetExiste(uiNewSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiNewSommetArrivee) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiNewSommetArrivee) == false) {
-		cout << "Le point " << uiNewSommetArrivee << " n'existe pas" << endl;
-		return;
+	else {
+		GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
+		GRAAjouterLiaison(uiSommetDepart, uiNewSommetArrivee);
 	}
-
-	GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
-	GRAAjouterLiaison(uiSommetDepart, uiNewSommetArrivee);
 }
 
 
@@ -149,26 +142,25 @@ void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int ui
 void CGraphe::GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee)
 {
 	if (GRASommetExiste(uiSommetDepart) == false) {
-		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
-		return;
+		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
 	}
-	if (GRASommetExiste(uiSommetArrivee) == false) {
-		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
-		return;
+	else if (GRASommetExiste(uiSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
 	}
+	else {
+		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
+		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
 
-	CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
-	CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
-
-	if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee) == false) 
-	{
-		cout << "La liaison du point " << SOMSommetDepart.SOMObtenirNumero() << " vers le sommet "
-			<< SOMSommetArrivee.SOMObtenirNumero() << "n'existe pas" << endl;
-		return;
+		if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee) == false)
+		{
+			throw CException("La liaison du point " + to_string(SOMSommetDepart.SOMObtenirNumero()) + " vers le sommet "
+				+ to_string(SOMSommetArrivee.SOMObtenirNumero()) + "n'existe pas");
+		}
+		else {
+			SOMSommetDepart.SOMRetirerPartant(SOMSommetArrivee);
+			SOMSommetArrivee.SOMRetirerArrivant(SOMSommetDepart);
+		}
 	}
-
-	SOMSommetDepart.SOMRetirerPartant(SOMSommetArrivee);
-	SOMSommetArrivee.SOMRetirerArrivant(SOMSommetDepart);
 }
 
 /**
@@ -185,8 +177,8 @@ CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
 }
 
 /**
-* Méthode permettant d'inverser le sens des liaisons du graphe
-*/
+ * Méthode permettant d'inverser le sens des liaisons du graphe
+ */
 void CGraphe::GRAInverserGraphe()
 {
 	for (CSommet &SOMBoucle : vSOMGRAlist) {
@@ -221,10 +213,10 @@ ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 }
 
 /**
-* Méthode permettant de vérifier si un point existe ou non
-* @param uiNumeroSommet le numéro du sommet dont on cherche à vérifier l'existence
-* return true si on trouve un CSommet ayant le numéro uiNumeroSommet, return false sinon
-*/
+ * Méthode permettant de vérifier si un point existe ou non
+ * @param uiNumeroSommet le numéro du sommet dont on cherche à vérifier l'existence
+ * @return true si on trouve un CSommet ayant le numéro uiNumeroSommet, false sinon
+ */
 bool CGraphe::GRASommetExiste(unsigned int uiNumeroSommet) {
 	for (CSommet &SOMBoucle : vSOMGRAlist) {
 		if (SOMBoucle.SOMObtenirNumero() == uiNumeroSommet) {

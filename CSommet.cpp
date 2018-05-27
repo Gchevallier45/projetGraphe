@@ -94,9 +94,9 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 }
 
 /**
-* Méthode permettant de retirer un CArc de la liste des CArc arrivant du CSommet en cours
-* @Param SOMPoint CSommet auquel le point en cours est relié
-*/
+ * Méthode permettant de retirer un CArc de la liste des CArc arrivant du CSommet en cours
+ * @param SOMPoint CSommet auquel le point en cours est relié
+ */
 void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
@@ -107,9 +107,9 @@ void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
 }
 
 /**
-* Méthode permettant de retirer un CArc de la liste des CArc partant du CSommet en cours
-* @Param SOMPoint CSommet auquel le point en cours est relié
-*/
+ * Méthode permettant de retirer un CArc de la liste des CArc partant du CSommet en cours
+ * @param SOMPoint CSommet auquel le point en cours est relié
+ */
 void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
@@ -121,10 +121,10 @@ void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 
 
 /**
-* Méthode permettant de vérifier qu'un CArc existe
-* @Param SOMSommetArrivee CSommet qui est relié au CSommet en cours (s'il existe)
-* return true si on trouve SOMSommetArrivee dans la liste des CArc partant du CSommet en cours, return false sinon
-*/
+ * Méthode permettant de vérifier qu'un CArc existe
+ * @param SOMSommetArrivee CSommet qui est relié au CSommet en cours (s'il existe)
+ * @return true si on trouve SOMSommetArrivee dans la liste des CArc partant du CSommet en cours, false sinon
+ */
 bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 {
 	for (CArc& ARCBoucle : vARCSOMPartant) {
@@ -136,8 +136,8 @@ bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 }
 
 /**
-* Métode qui échange les listes de CArc partant et arrivant permettant ainsi d'inverser les liens dans le CGraphe
-*/
+ * Métode qui échange les listes de CArc partant et arrivant permettant ainsi d'inverser les liens dans le CGraphe
+ */
 void CSommet::SOMInverserLiens()
 {
 	vector<CArc> vARCTampon = SOMObtenirArcsPartant();
@@ -146,32 +146,22 @@ void CSommet::SOMInverserLiens()
 }
 
 /**
-* Modifie le numéro du CSommet
-* @Param uiNumero Nouveau numéro du CSommet
-*/
+ * Modifie le numéro du CSommet
+ * @Param uiNumero Nouveau numéro du sommet
+ */
 void CSommet::SOMModifierNumero(unsigned int uiNumero)
 {
 	uiSOMNumero = uiNumero;
 }
 
 /**
- * Détruit un sommet ainsi que ses liaisons arrivantes et partantes
+ * Retire les arcs présents dans les sommets reliés au sommet courant
  */
 void CSommet::SOMSupprimerLiaisons(){
-
-	//retire les arcs présents dans les sommets liés au point qui se fait supprimer
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
 		vARCSOMArrivant[uiBoucle].ARCObtenirSommet().SOMRetirerArrivant(*this);
 	}
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
 		vARCSOMPartant[uiBoucle].ARCObtenirSommet().SOMRetirerPartant(*this);
 	}
-
-	//si besoin de supprimer les Arcs du sommet en court de suppression
-	/*for (unsigned int i = vARCSOMArrivant.size(); i > 0 ; i--) {
-	vARCSOMArrivant[i].erase;
-	}
-	for (unsigned int i = vARCSOMPartant.size(); i > 0 ; i--) {
-	vARCSOMPartant[i].erase;
-	}*/
 }

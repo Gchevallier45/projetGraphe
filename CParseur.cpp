@@ -43,10 +43,10 @@ CParseur::CParseur(string sCheminFichier)
 		bool sommetParse = false;
 		while (getline(ifPARFichier, sLigne))
 		{
-			if (sLigne.find("]") != -1) { //Si la dernière ligne est atteinte on arrête le parser
+			if (sLigne.find("]") != -1) { //Si la dernière ligne est atteinte on arrête le parseur
 				if (sommetParse == false) {
 					sommetParse = true;
-					getline(ifPARFichier, sLigne); //permet de sauter la ligne juste après "]"
+					getline(ifPARFichier, sLigne); //permet de sauter la ligne juste après le premier "]"
 				}
 				else {
 					break;
@@ -68,14 +68,14 @@ CParseur::CParseur(string sCheminFichier)
 					char *pcEnd = new char[sLigne.length() + 1];
 					strcpy_s(pcEnd, sLigne.length()+1,sLigne.c_str());
 					if (sommetParse == false) {
-						unsigned int test = strtol(pcEnd, &pcEnd,10);
-						GRAPARgraphe.GRAAjouterPoint(test);
+						unsigned int sommet = strtol(pcEnd, &pcEnd,10);
+						GRAPARgraphe.GRAAjouterPoint(sommet);
 					}
 					else {
 						unsigned int uiLaison[2];
 						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
-							unsigned int test = strtol(pcEnd, &pcEnd,10);
-							uiLaison[uiBoucle] = test;
+							unsigned int sommet = strtol(pcEnd, &pcEnd,10);
+							uiLaison[uiBoucle] = sommet;
 						}
 						GRAPARgraphe.GRAAjouterLiaison(uiLaison[0], uiLaison[1]);
 					}
