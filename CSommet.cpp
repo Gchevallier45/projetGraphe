@@ -19,21 +19,21 @@ int CSommet::SOMObtenirNumero() {
 }
 
 /**
- * Ajoute un arc arrivant sur le sommet
- * @param pSOMArrivant l'arc arrivant sur le sommet
+ * Ajoute un arc vers le sommet de départ
+ * @param SOMPoint le sommet de départ
  */
-void CSommet::SOMAjouterArrivant(CArc* pSOMArrivant)
+void CSommet::SOMAjouterArrivant(CSommet& SOMPoint)
 {
-	vARCSOMArrivant.push_back(*pSOMArrivant);
+	vARCSOMArrivant.push_back(CArc(SOMPoint));
 }
 
 /**
- * Ajoute un arc partant du sommet
- * @param pSOMArrivant l'arc partant du sommet
+ * Ajoute un arc vers le sommet de destination
+ * @param SOMPoint le sommet de destination
  */
-void CSommet::SOMAjouterPartant(CArc* pARCPartant)
+void CSommet::SOMAjouterPartant(CSommet& SOMPoint)
 {
-	vARCSOMPartant.push_back(*pARCPartant);
+	vARCSOMPartant.push_back(CArc(SOMPoint));
 }
 
 /**
@@ -60,8 +60,7 @@ const vector<CArc>& CSommet::SOMObtenirArcsArrivant()
  * @param SOMParam le sommet à afficher
  * @return le flux passé en paramètre
  */
-ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser direct cout<< pour afficher un sommet
-	//void CSommet::SOMVisualiserSommet(){
+ostream& operator<<(ostream& os, CSommet &SOMParam) {
 	vector<CArc> vARCArrivant = SOMParam.SOMObtenirArcsArrivant();
 	vector<CArc> vARCPartant = SOMParam.SOMObtenirArcsPartant();
 
@@ -70,10 +69,10 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	unsigned int uiBoucle = 0;
 	if (vARCArrivant.size() > 0) {
 		os << "Point(s) venant vers " << SOMParam.SOMObtenirNumero() << " sont : "
-			<< vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+			<< vARCArrivant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
 		while (uiBoucle < vARCArrivant.size()-1) {
 			uiBoucle++;
-			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
 
 		}
 		os << endl;
@@ -83,10 +82,10 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 	uiBoucle = 0;
 	if (vARCPartant.size() > 0) {
 		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " 
-			<< vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+			<< vARCPartant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
 		while (uiBoucle < vARCPartant.size()-1) {
 			uiBoucle++;
-			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet()->SOMObtenirNumero();
+			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
 		}
 		os << endl;
 	}	
@@ -98,23 +97,10 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) { //Ca permet d'utiliser dir
 
 /**
 */
-void CSommet::SOMRetirerArrivant(CArc* pARCArrivant)
+void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		if (pARCArrivant == &vARCSOMArrivant[uiBoucle]) {
-			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
-		}
-	}
-
-}
-
-/**
-*/
-//à voir si on garde pas que le retrait à partir de point parce que c'est plus simple que le retrait à partir d'arc on dirait
-void CSommet::SOMRetirerToutArrivant(CSommet* pSOMPoint)
-{
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		if (pSOMPoint == vARCSOMArrivant[uiBoucle].ARCObtenirSommet()) {
+		if (&SOMPoint == &vARCSOMArrivant[uiBoucle].ARCObtenirSommet()) {
 			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
 		}
 	}
@@ -122,36 +108,23 @@ void CSommet::SOMRetirerToutArrivant(CSommet* pSOMPoint)
 
 /**
 */
-void CSommet::SOMRetirerPartant(CArc* pARCPartant)
+void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 {
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
-		if (&vARCSOMPartant[uiBoucle] == pARCPartant) {
+		if (&SOMPoint == &vARCSOMPartant[uiBoucle].ARCObtenirSommet()) {
 			vARCSOMPartant.erase(vARCSOMPartant.begin() + uiBoucle);
 		}
 	}
 }
 
-/**
-*/
-void CSommet::SOMRetirerToutPartant(CSommet* pSOMPoint)
+bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 {
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
-		if (pSOMPoint == vARCSOMPartant[uiBoucle].ARCObtenirSommet()) {
-			vARCSOMPartant.erase(vARCSOMPartant.begin() + uiBoucle);
+	for (CArc& ARCBoucle : vARCSOMPartant) {
+		if (&SOMSommetArrivee == &ARCBoucle.ARCObtenirSommet()) {
+			return true;
 		}
 	}
-}
-
-bool CSommet::SOMArcExiste(CSommet * SOMSommetArrivee)
-{
-	bool bExiste = false;
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
-		if (this->vARCSOMPartant[uiBoucle].ARCObtenirSommet() == SOMSommetArrivee) {
-			bExiste = true;
-		}
-	}
-
-	return bExiste;
+	return false;
 }
 
 void CSommet::SOMInverserLiens()
@@ -169,15 +142,14 @@ void CSommet::SOMModifierNumero(unsigned int uiNumero)
 /**
  * Détruit un sommet ainsi que ses liaisons arrivantes et partantes
  */
-void CSommet::SOMRetirerSommet(){
-	//Ca correspond pas mal a un destructeur la fonction du coup j'ai mis le code dans le destructeur
+void CSommet::SOMSupprimerLiaisons(){
 
 	//retire les arcs présents dans les sommets liés au point qui se fait supprimer
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		vARCSOMArrivant[uiBoucle].ARCObtenirSommet()->SOMRetirerToutArrivant(this);
+		vARCSOMArrivant[uiBoucle].ARCObtenirSommet().SOMRetirerArrivant(*this);
 	}
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		vARCSOMPartant[uiBoucle].ARCObtenirSommet()->SOMRetirerToutPartant(this);
+		vARCSOMPartant[uiBoucle].ARCObtenirSommet().SOMRetirerPartant(*this);
 	}
 
 	//si besoin de supprimer les Arcs du sommet en court de suppression

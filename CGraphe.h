@@ -17,14 +17,13 @@ public:
 	void GRAAjouterPoint(unsigned int uiNumero);
 	void GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres);
 	void GRARetirerPoint(unsigned int uiPoint);
-	void GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
+	void GRAAjouterLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee);
 	void GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
 	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
-	void GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee);
-	CSommet* GRAObtenirSommet(unsigned int uiNumeroSommet);
+	void GRARetirerLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee);
 	void GRAInverserGraphe();
-	//void GRAVisualiser();
 	const vector<CSommet>& GRAObtenirListeSommets();
-	bool GRASommetExiste(CSommet * SOMSommet);
+	bool GRASommetExiste(const CSommet& SOMSommet);
 	friend ostream& operator<<(ostream& os, CGraphe &GRAParam);
+	CSommet* GRAObtenirSommet(unsigned int uiNumeroSommet);
 };

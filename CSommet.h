@@ -21,14 +21,12 @@ private :
 public:
 	CSommet(unsigned int uiNumeroParam);
 	int SOMObtenirNumero();
-	void SOMAjouterArrivant(CArc* pSOMArrivant);
-	void SOMRetirerArrivant(CArc* pARCArrivant);
-	void SOMRetirerToutArrivant(CSommet * pSOMPoint);
-	void SOMAjouterPartant(CArc* pSOMPartant);
-	void SOMRetirerPartant(CArc* pARCPartant);
-	void SOMRetirerToutPartant(CSommet* pSOMPoint);
-	void SOMRetirerSommet();
-	bool SOMArcExiste(CSommet *SOMSommetArrivee);
+	void SOMAjouterArrivant(CSommet& SOMPoint);
+	void SOMRetirerArrivant(const CSommet& SOMPoint);
+	void SOMAjouterPartant(CSommet& SOMPoint);
+	void SOMRetirerPartant(const CSommet& SOMPoint);
+	void SOMSupprimerLiaisons();
+	bool SOMArcExiste(const CSommet& SOMSommetArrivee);
 	void SOMInverserLiens();
 	void SOMModifierNumero(unsigned int uiNumero);
 	const vector<CArc>& SOMObtenirArcsPartant();

@@ -5,7 +5,7 @@
 */
 void CGraphe::GRAAjouterPoint(unsigned int uiPoint)
 {
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiPoint))) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiPoint))) {
 		cout << "Le point " << uiPoint << " existe deja" << endl;
 		return;
 	}
@@ -16,19 +16,19 @@ void CGraphe::GRAAjouterPoint(unsigned int uiPoint)
 */
 void CGraphe::GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres)
 {
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNumeroAvant)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiNumeroAvant)) == false) {
 		cout << "Le point " << uiNumeroAvant << " n'existe pas" << endl;
 		return;
 	}
 
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNumeroApres))) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiNumeroApres))) {
 		cout << "Le point " << uiNumeroApres << " existe deja" << endl;
 		return;
 	}
-	
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiNumeroAvant) {
-			vSOMGRAlist[uiBoucle].SOMModifierNumero(uiNumeroApres);//retire le point de la liste du graphe
+
+	for (CSommet &SOMBoucle : vSOMGRAlist) {
+		if (SOMBoucle.SOMObtenirNumero() == uiNumeroAvant) {
+			SOMBoucle.SOMModifierNumero(uiNumeroApres);//retire le point de la liste du graphe
 			break;
 		}
 	}
@@ -39,12 +39,12 @@ void CGraphe::GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumero
 */
 void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 {
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiPoint)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiPoint)) == false) {
 		cout << "Le point " << uiPoint << " n'existe pas" << endl;
 		return;
 	}
 	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint){ 
+		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiPoint){
 			vSOMGRAlist.erase(vSOMGRAlist.begin() + uiBoucle);//retire le point de la liste du graphe
 			break;
 		}
@@ -56,62 +56,62 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
  * @param SOMSommetDepart le sommet de départ de la liaison
  * @param SOMSommetArrivee le sommet d'arrivée de la liaison
  */
-void CGraphe::GRAAjouterLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee)
+void CGraphe::GRAAjouterLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee)
 {
-	if (this->GRASommetExiste(SOMSommetDepart) == false) {
-		cout << "Le point " << SOMSommetDepart->SOMObtenirNumero() << " n'existe pas" << endl;
+	if (GRASommetExiste(SOMSommetDepart) == false) {
+		cout << "Le point " << SOMSommetDepart.SOMObtenirNumero() << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(SOMSommetArrivee) == false) {
-		cout << "Le point " << SOMSommetArrivee->SOMObtenirNumero() << " n'existe pas" << endl;
+	if (GRASommetExiste(SOMSommetArrivee) == false) {
+		cout << "Le point " << SOMSommetArrivee.SOMObtenirNumero() << " n'existe pas" << endl;
 		return;
 	}
-	if (SOMSommetDepart->SOMArcExiste(SOMSommetArrivee)) {
-		cout << "La liaison du point " << SOMSommetDepart->SOMObtenirNumero() << " vers le sommet "
-			<< SOMSommetArrivee->SOMObtenirNumero() << " existe deja" << endl;
+	if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee)) {
+		cout << "La liaison du point " << SOMSommetDepart.SOMObtenirNumero() << " vers le sommet "
+			<< SOMSommetArrivee.SOMObtenirNumero() << " existe deja" << endl;
 		return;
 	}
 
-	SOMSommetDepart->SOMAjouterPartant(&CArc(SOMSommetArrivee));
-	SOMSommetArrivee->SOMAjouterArrivant(&CArc(SOMSommetDepart));
+	SOMSommetDepart.SOMAjouterPartant(SOMSommetArrivee);
+	SOMSommetArrivee.SOMAjouterArrivant(SOMSommetDepart);
 }
 
 void CGraphe::GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart)
 {
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetDepart)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiSommetDepart)) == false) {
 		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetArrivee)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiSommetArrivee)) == false) {
 		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNewSommetDepart))) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiNewSommetDepart))) {
 		cout << "Le point " << uiNewSommetDepart << " existe deja" << endl;
 		return;
 	}
 
-	GRARetirerLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
-	GRAAjouterLiaison(this->GRAObtenirSommet(uiNewSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
+	GRARetirerLiaison(*GRAObtenirSommet(uiSommetDepart), *GRAObtenirSommet(uiSommetArrivee));
+	GRAAjouterLiaison(*GRAObtenirSommet(uiNewSommetDepart), *GRAObtenirSommet(uiSommetArrivee));
 
 }
 
 void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee)
 {
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetDepart)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiSommetDepart)) == false) {
 		cout << "Le point " << uiSommetDepart << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiSommetArrivee)) == false) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiSommetArrivee)) == false) {
 		cout << "Le point " << uiSommetArrivee << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(this->GRAObtenirSommet(uiNewSommetArrivee))) {
+	if (GRASommetExiste(*GRAObtenirSommet(uiNewSommetArrivee))) {
 		cout << "Le point " << uiNewSommetArrivee << " existe deja" << endl;
 		return;
 	}
-	GRARetirerLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiSommetArrivee));
-	GRAAjouterLiaison(this->GRAObtenirSommet(uiSommetDepart), this->GRAObtenirSommet(uiNewSommetArrivee));
+	GRARetirerLiaison(*GRAObtenirSommet(uiSommetDepart), *GRAObtenirSommet(uiSommetArrivee));
+	GRAAjouterLiaison(*GRAObtenirSommet(uiSommetDepart), *GRAObtenirSommet(uiNewSommetArrivee));
 }
 
 
@@ -120,25 +120,25 @@ void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int ui
  * @param SOMSommetDepart le sommet de départ de la liaison
  * @param SOMSommetArrivee le sommet d'arrivée de la liaison
  */
-void CGraphe::GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArrivee)
+void CGraphe::GRARetirerLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee)
 {
-	if (this->GRASommetExiste(SOMSommetDepart) == false) {
-		cout << "Le point " << SOMSommetDepart->SOMObtenirNumero() << " n'existe pas" << endl;
+	if (GRASommetExiste(SOMSommetDepart) == false) {
+		cout << "Le point " << SOMSommetDepart.SOMObtenirNumero() << " n'existe pas" << endl;
 		return;
 	}
-	if (this->GRASommetExiste(SOMSommetArrivee) == false) {
-		cout << "Le point " << SOMSommetArrivee->SOMObtenirNumero() << " n'existe pas" << endl;
+	if (GRASommetExiste(SOMSommetArrivee) == false) {
+		cout << "Le point " << SOMSommetArrivee.SOMObtenirNumero() << " n'existe pas" << endl;
 		return;
 	}
-	if (SOMSommetDepart->SOMArcExiste(SOMSommetArrivee) == false) 
+	if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee) == false) 
 	{
-		cout << "La liaison du point " << SOMSommetDepart->SOMObtenirNumero() << " vers le sommet "
-			<< SOMSommetArrivee->SOMObtenirNumero() << "n'existe pas" << endl;
+		cout << "La liaison du point " << SOMSommetDepart.SOMObtenirNumero() << " vers le sommet "
+			<< SOMSommetArrivee.SOMObtenirNumero() << "n'existe pas" << endl;
 		return;
 	}
 
-	SOMSommetDepart->SOMRetirerToutPartant(SOMSommetArrivee);
-	SOMSommetArrivee->SOMRetirerToutArrivant(SOMSommetDepart);
+	SOMSommetDepart.SOMRetirerPartant(SOMSommetArrivee);
+	SOMSommetArrivee.SOMRetirerArrivant(SOMSommetDepart);
 }
 
 /**
@@ -147,17 +147,17 @@ void CGraphe::GRARetirerLiaison(CSommet *SOMSommetDepart, CSommet *SOMSommetArri
  * @return un pointeur sur le sommet correspondant si celui-ci est trouvé dans le graphe, null sinon
  */
 CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (vSOMGRAlist[uiBoucle].SOMObtenirNumero() == uiNumeroSommet)
-			return &vSOMGRAlist[uiBoucle];
+	for (CSommet &SOMBoucle : vSOMGRAlist) {
+		if (SOMBoucle.SOMObtenirNumero() == uiNumeroSommet)
+			return &SOMBoucle;
 	}
 	return NULL;
 }
 
 void CGraphe::GRAInverserGraphe()
 {
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		vSOMGRAlist[uiBoucle].SOMInverserLiens();
+	for (CSommet &SOMBoucle : vSOMGRAlist) {
+		SOMBoucle.SOMInverserLiens();
 	}
 	
 }
@@ -178,27 +178,23 @@ const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
  * @return le flux passé en paramètre
  */
 ostream& operator<<(ostream& os, CGraphe &GRAParam) {
-//void CGraphe::GRAVisualiserGraphe()
 	vector<CSommet> listeSommets = GRAParam.GRAObtenirListeSommets();
-	os << "Vu du Graphe" << endl;
+	os << "Vue du Graphe" << endl;
 
-	for (unsigned int uiBoucle = 0; uiBoucle < listeSommets.size(); uiBoucle++) {
-		os << listeSommets[uiBoucle];
+	for (CSommet &SOMBoucle : listeSommets) {
+		os << SOMBoucle;
 	}
 	cout << "fingraphe" << endl;
 
 	return os;
 }
 
-bool CGraphe::GRASommetExiste(CSommet *SOMSommet) {
-
-	bool bExiste = false;
-
-	for (unsigned int uiBoucle = 0; uiBoucle < vSOMGRAlist.size(); uiBoucle++) {
-		if (&vSOMGRAlist[uiBoucle] == SOMSommet) {
-			bExiste = true;
+bool CGraphe::GRASommetExiste(const CSommet& SOMSommet) {
+	for (CSommet &SOMBoucle : vSOMGRAlist) {
+		if (&SOMBoucle == &SOMSommet) {
+			return true;
 		}
 	}
-	return bExiste;
+	return false;
 }
 

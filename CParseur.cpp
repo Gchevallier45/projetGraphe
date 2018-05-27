@@ -70,18 +70,18 @@ CParseur::CParseur(string sCheminFichier)
 					char *pcEnd = new char[sLigne.length() + 1];
 					strcpy_s(pcEnd, sLigne.length()+1,sLigne.c_str());
 					if (sommetParse == false) {
-						double test = strtod(pcEnd, &pcEnd);
+						unsigned int test = strtol(pcEnd, &pcEnd,10);
 						cout << test << endl;
 						GRAPARgraphe.GRAAjouterPoint(test);
 					}
 					else {
 						unsigned int uiLaison[2];
 						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
-							double test = strtod(pcEnd, &pcEnd);
+							unsigned int test = strtol(pcEnd, &pcEnd,10);
 							uiLaison[uiBoucle] = test;
 						}
 						cout << uiLaison[0] << uiLaison[1] << endl;
-						GRAPARgraphe.GRAAjouterLiaison(GRAPARgraphe.GRAObtenirSommet(uiLaison[0]), GRAPARgraphe.GRAObtenirSommet(uiLaison[1]));
+						GRAPARgraphe.GRAAjouterLiaison(*GRAPARgraphe.GRAObtenirSommet(uiLaison[0]), *GRAPARgraphe.GRAObtenirSommet(uiLaison[1]));
 					}
 					break;
 				}
