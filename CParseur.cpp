@@ -81,7 +81,7 @@ CParseur::CParseur(string sCheminFichier)
 							uiLaison[uiBoucle] = test;
 						}
 						cout << uiLaison[0] << uiLaison[1] << endl;
-						GRAPARgraphe.GRAAjouterLiaison(*GRAPARgraphe.GRAObtenirSommet(uiLaison[0]), *GRAPARgraphe.GRAObtenirSommet(uiLaison[1]));
+						GRAPARgraphe.GRAAjouterLiaison(uiLaison[0], uiLaison[1]);
 					}
 					break;
 				}

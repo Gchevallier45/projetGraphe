@@ -129,7 +129,7 @@ bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 
 void CSommet::SOMInverserLiens()
 {
-	vector<CArc> vARCTampon = this->SOMObtenirArcsPartant();
+	vector<CArc> vARCTampon = SOMObtenirArcsPartant();
 	vARCSOMPartant = vARCSOMArrivant;
 	vARCSOMArrivant = vARCTampon;
 }

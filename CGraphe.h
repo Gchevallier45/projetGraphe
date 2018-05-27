@@ -1,5 +1,6 @@
 #pragma once
 #include "CSommet.h"
+#include "CException.h"
 #include <vector>
 
 using namespace std;
@@ -17,13 +18,13 @@ public:
 	void GRAAjouterPoint(unsigned int uiNumero);
 	void GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres);
 	void GRARetirerPoint(unsigned int uiPoint);
-	void GRAAjouterLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee);
+	void GRAAjouterLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
 	void GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
 	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
-	void GRARetirerLiaison(CSommet &SOMSommetDepart, CSommet &SOMSommetArrivee);
+	void GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
 	void GRAInverserGraphe();
 	const vector<CSommet>& GRAObtenirListeSommets();
-	bool GRASommetExiste(const CSommet& SOMSommet);
+	bool GRASommetExiste(unsigned int uiNumeroSommet);
 	friend ostream& operator<<(ostream& os, CGraphe &GRAParam);
 	CSommet* GRAObtenirSommet(unsigned int uiNumeroSommet);
 };
