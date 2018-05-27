@@ -96,6 +96,8 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 }
 
 /**
+* Méthode permettant de retirer un CArc de la liste des CArc arrivant du CSommet en cours
+* @Param SOMPoint CSommet auquel le point en cours est relié
 */
 void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
 {
@@ -107,6 +109,8 @@ void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
 }
 
 /**
+* Méthode permettant de retirer un CArc de la liste des CArc partant du CSommet en cours
+* @Param SOMPoint CSommet auquel le point en cours est relié
 */
 void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 {
@@ -117,6 +121,12 @@ void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 	}
 }
 
+
+/**
+* Méthode permettant de vérifier qu'un CArc existe
+* @Param SOMSommetArrivee CSommet qui est relié au CSommet en cours (s'il existe)
+* return true si on trouve SOMSommetArrivee dans la liste des CArc partant du CSommet en cours, return false sinon
+*/
 bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 {
 	for (CArc& ARCBoucle : vARCSOMPartant) {
@@ -127,6 +137,9 @@ bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 	return false;
 }
 
+/**
+* Métode qui échange les listes de CArc partant et arrivant permettant ainsi d'inverser les liens dans le CGraphe
+*/
 void CSommet::SOMInverserLiens()
 {
 	vector<CArc> vARCTampon = SOMObtenirArcsPartant();
@@ -134,6 +147,10 @@ void CSommet::SOMInverserLiens()
 	vARCSOMArrivant = vARCTampon;
 }
 
+/**
+* Modifie le numéro du CSommet
+* @Param uiNumero Nouveau numéro du CSommet
+*/
 void CSommet::SOMModifierNumero(unsigned int uiNumero)
 {
 	uiSOMNumero = uiNumero;
