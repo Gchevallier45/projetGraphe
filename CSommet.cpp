@@ -90,8 +90,6 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 		os << endl;
 	}	
 
-	cout << "finsommet" << endl;
-
 	return os;
 }
 

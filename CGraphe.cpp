@@ -187,12 +187,10 @@ const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
  */
 ostream& operator<<(ostream& os, CGraphe &GRAParam) {
 	vector<CSommet> listeSommets = GRAParam.GRAObtenirListeSommets();
-	os << "Vue du Graphe" << endl;
 
 	for (CSommet &SOMBoucle : listeSommets) {
 		os << SOMBoucle;
 	}
-	cout << "fingraphe" << endl;
 
 	return os;
 }

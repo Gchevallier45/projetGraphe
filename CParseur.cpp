@@ -41,8 +41,6 @@ CParseur::CParseur(string sCheminFichier)
 		unsigned int uiNbSommets = 0;
 		unsigned int uiNbArcs = 0;
 		bool sommetParse = false;
-		//CArc ARCarcs;
-		//CSommet SOMsommets;
 		while (getline(ifPARFichier, sLigne))
 		{
 			if (sLigne.find("]") != -1) { //Si la dernière ligne est atteinte on arrête le parser
@@ -71,7 +69,6 @@ CParseur::CParseur(string sCheminFichier)
 					strcpy_s(pcEnd, sLigne.length()+1,sLigne.c_str());
 					if (sommetParse == false) {
 						unsigned int test = strtol(pcEnd, &pcEnd,10);
-						cout << test << endl;
 						GRAPARgraphe.GRAAjouterPoint(test);
 					}
 					else {
@@ -80,7 +77,6 @@ CParseur::CParseur(string sCheminFichier)
 							unsigned int test = strtol(pcEnd, &pcEnd,10);
 							uiLaison[uiBoucle] = test;
 						}
-						cout << uiLaison[0] << uiLaison[1] << endl;
 						GRAPARgraphe.GRAAjouterLiaison(uiLaison[0], uiLaison[1]);
 					}
 					break;

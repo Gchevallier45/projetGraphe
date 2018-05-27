@@ -13,7 +13,7 @@ private :
 	CSommet* pSOMARCDestination;
 
 public:
-	CArc(CSommet& pSOMDestination);
+	CArc(CSommet& SOMSommetParam);
 
 	void ARCModifierDestination(CSommet& SOMSommetParam);
 	CSommet& ARCObtenirSommet();

@@ -20,7 +20,7 @@ public:
 	void GRARetirerPoint(unsigned int uiPoint);
 	void GRAAjouterLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
 	void GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
-	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
+	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee);
 	void GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
 	void GRAInverserGraphe();
 	const vector<CSommet>& GRAObtenirListeSommets();
