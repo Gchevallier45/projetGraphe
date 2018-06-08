@@ -290,7 +290,7 @@ CGraphe * CGraphe::GRABoruvka() //Remplacer ArcsArrivant par Arc
 			GRAArbreCouvrant->GRAAjouterLiaison(SOMBoucle.SOMObtenirNumero(), ARCArcPoidsMin.ARCObtenirSommet().SOMObtenirNumero(), ARCArcPoidsMin.ARCObtenirPoids());
 
 			//Fusion des sommets
-
+			//for(SOMBoucle.SOMObtenirArcsArrivant())
 		}
 
 	}
