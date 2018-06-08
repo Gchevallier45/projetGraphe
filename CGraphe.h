@@ -1,6 +1,7 @@
 #pragma once
 #include "CSommet.h"
 #include "CException.h"
+#include "CArc.h"
 #include <vector>
 
 using namespace std;
@@ -22,6 +23,7 @@ public:
 	void GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
 	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee);
 	void GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
+	void GRARetirerLiaison(CArc CarcParam);
 	void GRAInverserGraphe();
 	const vector<CSommet>& GRAObtenirListeSommets();
 	bool GRASommetExiste(unsigned int uiNumeroSommet);

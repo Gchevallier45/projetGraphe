@@ -25,3 +25,8 @@ void CArc::ARCModifierDestination(CSommet& SOMSommetParam)
 CSommet& CArc::ARCObtenirSommet() {
 	return *pSOMARCDestination;
 }
+
+unsigned int CArc::ARCObtenirId() {
+	return uiId;
+}
+

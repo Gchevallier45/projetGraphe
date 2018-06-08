@@ -133,6 +133,30 @@ void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int ui
 	}
 }
 
+/*
+void CGraphe::GRARetirerLiaison(CArc ARCParam)
+{
+	if (GRASommetExiste(uiSommetDepart) == false) {
+		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
+	}
+	else if (GRASommetExiste(uiSommetArrivee) == false) {
+		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
+	}
+	else {
+		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
+		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
+
+		if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee) == false)
+		{
+			throw CException("La liaison du point " + to_string(SOMSommetDepart.SOMObtenirNumero()) + " vers le sommet "
+				+ to_string(SOMSommetArrivee.SOMObtenirNumero()) + "n'existe pas");
+		}
+		else {
+			SOMSommetDepart.SOMRetirerPartant(SOMSommetArrivee);
+			SOMSommetArrivee.SOMRetirerArrivant(SOMSommetDepart);
+		}
+	}
+}*/
 
 /**
  * Retire la liaison entre deux sommets dans le graphe 

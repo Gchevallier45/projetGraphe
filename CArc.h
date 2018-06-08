@@ -10,12 +10,18 @@ class CSommet; //Permet d'utiliser d'avoir une dépendance circulaire entre CArc 
 class CArc
 {
 private :
+
 	CSommet* pSOMARCDestination;
+	CSommet* pSOMARCDestination;
+	unsigned int uiPoids;
+	unsigned int uiId;
 
 public:
 	CArc(CSommet& SOMSommetParam);
 
 	void ARCModifierDestination(CSommet& SOMSommetParam);
 	CSommet& ARCObtenirSommet();
+	unsigned int ARCObtenirId() {
+
 };
 
