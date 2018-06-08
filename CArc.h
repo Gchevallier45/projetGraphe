@@ -21,7 +21,7 @@ public:
 
 	void ARCModifierDestination(CSommet& SOMSommetParam);
 	CSommet& ARCObtenirSommet();
-	unsigned int ARCObtenirId() {
+	unsigned int ARCObtenirId();
 
 };
 
