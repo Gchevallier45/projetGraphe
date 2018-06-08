@@ -25,6 +25,7 @@ public:
 	void GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
 	void GRARetirerLiaison(CArc CarcParam);
 	void GRAInverserGraphe();
+	CGraphe* GRABoruvka();
 	const vector<CSommet>& GRAObtenirListeSommets();
 	bool GRASommetExiste(unsigned int uiNumeroSommet);
 	friend ostream& operator<<(ostream& os, CGraphe &GRAParam);
