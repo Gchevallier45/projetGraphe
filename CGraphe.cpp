@@ -194,7 +194,7 @@ CGraphe * CGraphe::GRABoruvka()
 	CGraphe GRATmp = CGraphe(*this); //Copie du graphe courant qui sera utilisée pour l'algo
 	CGraphe *GRAArbreCouvrant = new CGraphe(); //Le graphe qui contient l'arbre couvrant
 
-	while (GRATmp.GRAObtenirListeSommets().size() != 0) {
+	while (GRATmp.GRAObtenirListeSommets().size() != 1) {
 		cout << "Suppression boucles" << endl;
 		//Suppression des boucles
 		for (CSommet SOMBoucle : GRATmp.GRAObtenirListeSommets()) {
@@ -230,6 +230,7 @@ CGraphe * CGraphe::GRABoruvka()
 		}
 
 		cout << "bails sommets" << endl;
+		cout << GRATmp.GRAObtenirListeSommets().size() << endl;
 		for (int uiBoucle = 0; uiBoucle < GRATmp.GRAObtenirListeSommets().size(); uiBoucle++) {
 			CSommet SOMBoucle = GRATmp.GRAObtenirListeSommets()[uiBoucle];
 			cout << "sommet " << SOMBoucle.SOMObtenirNumero() << endl;
@@ -245,24 +246,23 @@ CGraphe * CGraphe::GRABoruvka()
 
 			//Ajout de l'arête à l'arbre
 			CSommet SOMDestinationArcPoidsMin = ARCArcPoidsMin.ARCObtenirSommet();
-			if (!GRAArbreCouvrant->GRASommetExiste(SOMBoucle.SOMObtenirNumero()))
-				GRAArbreCouvrant->GRAAjouterPoint(SOMBoucle.SOMObtenirNumero());
-			if (!GRAArbreCouvrant->GRASommetExiste(SOMDestinationArcPoidsMin.SOMObtenirNumero()))
-				GRAArbreCouvrant->GRAAjouterPoint(SOMDestinationArcPoidsMin.SOMObtenirNumero());
-			GRAArbreCouvrant->GRAAjouterLiaison(SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero(), ARCArcPoidsMin.ARCObtenirPoids());
+			if (SOMBoucle.SOMObtenirNumero() != SOMDestinationArcPoidsMin.SOMObtenirNumero()) {
+				if (!GRAArbreCouvrant->GRASommetExiste(SOMBoucle.SOMObtenirNumero()))
+					GRAArbreCouvrant->GRAAjouterPoint(SOMBoucle.SOMObtenirNumero());
+				if (!GRAArbreCouvrant->GRASommetExiste(SOMDestinationArcPoidsMin.SOMObtenirNumero()))
+					GRAArbreCouvrant->GRAAjouterPoint(SOMDestinationArcPoidsMin.SOMObtenirNumero());
+				GRAArbreCouvrant->GRAAjouterLiaison(SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero(), ARCArcPoidsMin.ARCObtenirPoids());
 
-			GRATmp.GRARetirerLiaison(ARCArcPoidsMin.ARCObtenirIdLiaison());
+				GRATmp.GRARetirerLiaison(ARCArcPoidsMin.ARCObtenirIdLiaison());
 
-			//Fusion des sommets, on supprime le sommet en cours et on redirige ses arêtes vers le sommet de destination
-			vector<CArc> vARCArcsAvantModif = SOMBoucle.SOMObtenirArcs();
-			//cout << "taille : " << vARCArcsAvantModif.size() << endl;
-			for (CArc ARCBoucle : vARCArcsAvantModif) {
-				//cout << "dest " << ARCBoucle.ARCObtenirSommet().SOMObtenirNumero() << endl;
-				GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
+				//Fusion des sommets, on supprime le sommet en cours et on redirige ses arêtes vers le sommet de destination
+				vector<CArc> vARCArcsAvantModif = SOMBoucle.SOMObtenirArcs();
+				for (CArc ARCBoucle : vARCArcsAvantModif) {
+					GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
+				}
+				GRATmp.GRARetirerPoint(SOMBoucle.SOMObtenirNumero());
+				uiBoucle--; //Car on a supprimé le sommet en cours
 			}
-			cout << GRATmp << endl;
-			GRATmp.GRARetirerPoint(SOMBoucle.SOMObtenirNumero());
-			uiBoucle--; //Car on a supprimé le sommet en cours
 		}
 
 	}
