@@ -1,17 +1,6 @@
 #include "stdafx.h"
 #include "CGraphe.h"
 
-CGraphe::CGraphe(const CGraphe& GRAParam)
-{
-	vSOMGRAlist = GRAParam.vSOMGRAlist;
-	for (CSommet& SOMParam : vSOMGRAlist) {
-		for (CArc& ARCParam : SOMParam.SOMObtenirArcs()) {
-			int numeroSommet = ARCParam.ARCObtenirSommet().SOMObtenirNumero();
-			ARCParam.ARCModifierDestination(*GRAObtenirSommet(numeroSommet));
-		}
-	}
-}
-
 CGraphe::CGraphe() {
 	uiGRACompteurLiaisons = 0;
 }
@@ -114,7 +103,7 @@ void CGraphe::GRAModifierLiaison(unsigned int uiIdLiaison, unsigned int uiSommet
 		CSommet& SOMNouveauSommet = *GRAObtenirSommet(uiNouveauSommet);
 		for (CArc ARCBoucle : SOMSommetLiaison.SOMObtenirArcs()) {
 			if (ARCBoucle.ARCObtenirIdLiaison() == uiIdLiaison) {
-				CSommet& SOMSommetDestinationLiaison = ARCBoucle.ARCObtenirSommet();
+				CSommet& SOMSommetDestinationLiaison = *GRAObtenirSommet(ARCBoucle.ARCObtenirSommet());
 				unsigned int uiPoidsLiaison = ARCBoucle.ARCObtenirPoids();
 				SOMSommetLiaison.SOMRetirerArc(uiIdLiaison);
 				SOMSommetDestinationLiaison.SOMRetirerArc(uiIdLiaison);
@@ -136,7 +125,7 @@ void CGraphe::GRARetirerLiaison(unsigned int uiIdLiaison)
 {
 	for (CSommet& SOMBoucle : vSOMGRAlist) {
 		if (SOMBoucle.SOMArcExiste(uiIdLiaison)) {
-			CSommet& SOMSommetDestination = SOMBoucle.SOMObtenirArc(uiIdLiaison)->ARCObtenirSommet();
+			CSommet& SOMSommetDestination = *GRAObtenirSommet(SOMBoucle.SOMObtenirArc(uiIdLiaison)->ARCObtenirSommet());
 			SOMBoucle.SOMRetirerArc(uiIdLiaison);
 			SOMSommetDestination.SOMRetirerArc(uiIdLiaison);
 		}
@@ -226,7 +215,7 @@ CGraphe * CGraphe::GRABoruvka()
 				CArc& ARC1 = SOMBoucle.SOMObtenirArcs()[uiBoucle];
 				for (int uiBoucle1 = uiBoucle + 1; uiBoucle < SOMBoucle.SOMObtenirArcs().size() - 1; uiBoucle++) {
 					CArc& ARC2 = SOMBoucle.SOMObtenirArcs()[uiBoucle1];
-					if (ARC1.ARCObtenirSommet().SOMObtenirNumero() == ARC2.ARCObtenirSommet().SOMObtenirNumero()) {
+					if (ARC1.ARCObtenirSommet() == ARC2.ARCObtenirSommet()) {
 						if (ARC1.ARCObtenirPoids() < ARC2.ARCObtenirPoids()) {
 							GRATmp.GRARetirerLiaison(ARC2.ARCObtenirIdLiaison()); //Suppression de l'arc2
 						}
@@ -271,6 +260,7 @@ CGraphe * CGraphe::GRABoruvka()
 				//cout << "dest " << ARCBoucle.ARCObtenirSommet().SOMObtenirNumero() << endl;
 				GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
 			}
+			cout << GRATmp << endl;
 			GRATmp.GRARetirerPoint(SOMBoucle.SOMObtenirNumero());
 			uiBoucle--; //Car on a supprimé le sommet en cours
 		}
