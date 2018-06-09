@@ -28,10 +28,10 @@ void CSommet::SOMAjouterArcVers(CSommet& SOMPoint, unsigned int uiIdArc, unsigne
 }
 
 /**
- * Retourne une liste ! en lecture seule ! des arcs partant du sommet
+ * Retourne une liste des arcs partant du sommet
  * @param vARCSOMPartant la liste des arcs partant du sommet
  */
-const vector<CArc>& CSommet::SOMObtenirArcs()
+vector<CArc>& CSommet::SOMObtenirArcs()
 {
 	return vARCSOMArcs;
 }

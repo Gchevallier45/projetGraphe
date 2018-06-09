@@ -17,6 +17,7 @@ private:
 	vector<CSommet> vSOMGRAlist;
 	unsigned int uiGRACompteurLiaisons;
 public:
+	CGraphe(const CGraphe& GRAParam);
 	CGraphe();
 	void GRAAjouterPoint(unsigned int uiNumero);
 	void GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres);

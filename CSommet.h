@@ -26,7 +26,7 @@ public:
 	bool SOMArcExiste(unsigned int uiIdLiaison);
 	void SOMModifierNumero(unsigned int uiNumero);
 	CArc* SOMObtenirArc(unsigned int uiIdLiaison);
-	const vector<CArc>& SOMObtenirArcs();
+	vector<CArc>& SOMObtenirArcs();
 	friend ostream& operator<<(ostream& os, CSommet &SOMParam);
 };
 

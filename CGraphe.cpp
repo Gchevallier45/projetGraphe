@@ -1,6 +1,17 @@
 #include "stdafx.h"
 #include "CGraphe.h"
 
+CGraphe::CGraphe(const CGraphe& GRAParam)
+{
+	vSOMGRAlist = GRAParam.vSOMGRAlist;
+	for (CSommet& SOMParam : vSOMGRAlist) {
+		for (CArc& ARCParam : SOMParam.SOMObtenirArcs()) {
+			int numeroSommet = ARCParam.ARCObtenirSommet().SOMObtenirNumero();
+			ARCParam.ARCModifierDestination(*GRAObtenirSommet(numeroSommet));
+		}
+	}
+}
+
 CGraphe::CGraphe() {
 	uiGRACompteurLiaisons = 0;
 }
@@ -207,13 +218,13 @@ CGraphe * CGraphe::GRABoruvka()
 				}
 			}
 		}
-		
+
 		cout << "Suppression doublons" << endl;
 		//Suppression des doublons
 		for (CSommet SOMBoucle : GRATmp.GRAObtenirListeSommets()) {
 			for (int uiBoucle = 0; uiBoucle < SOMBoucle.SOMObtenirArcs().size(); uiBoucle++) {
 				CArc ARC1 = SOMBoucle.SOMObtenirArcs()[uiBoucle];
-				for (int uiBoucle1 = uiBoucle+1; uiBoucle < SOMBoucle.SOMObtenirArcs().size()-1; uiBoucle++) {
+				for (int uiBoucle1 = uiBoucle + 1; uiBoucle < SOMBoucle.SOMObtenirArcs().size() - 1; uiBoucle++) {
 					CArc ARC2 = SOMBoucle.SOMObtenirArcs()[uiBoucle1];
 					if (ARC1.ARCObtenirSommet().SOMObtenirNumero() == ARC2.ARCObtenirSommet().SOMObtenirNumero()) {
 						if (ARC1.ARCObtenirPoids() < ARC2.ARCObtenirPoids()) {
