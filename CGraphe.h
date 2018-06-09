@@ -15,16 +15,15 @@ class CGraphe
 {
 private:
 	vector<CSommet> vSOMGRAlist;
+	unsigned int uiGRACompteurLiaisons;
 public:
+	CGraphe();
 	void GRAAjouterPoint(unsigned int uiNumero);
 	void GRAModifierPoint(unsigned int uiNumeroAvant, unsigned int uiNumeroApres);
 	void GRARetirerPoint(unsigned int uiPoint);
-	void GRAAjouterLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
-	void GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart);
-	void GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee);
-	void GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee);
-	void GRARetirerLiaison(CArc CarcParam);
-	void GRAInverserGraphe();
+	void GRAAjouterLiaison(unsigned int uiSommet1, unsigned int uiSommet2, unsigned int uiPoidsLiaison);
+	void GRAModifierLiaison(unsigned int uiIdLiaison, unsigned int uiSommetARemplacer, unsigned int uiNouveauSommet);
+	void GRARetirerLiaison(unsigned int uiIdLiaison);
 	CGraphe* GRABoruvka();
 	const vector<CSommet>& GRAObtenirListeSommets();
 	bool GRASommetExiste(unsigned int uiNumeroSommet);

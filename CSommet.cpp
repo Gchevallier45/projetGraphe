@@ -22,36 +22,18 @@ int CSommet::SOMObtenirNumero() {
  * Ajoute un arc vers le sommet de départ
  * @param SOMPoint le sommet de départ
  */
-void CSommet::SOMAjouterArrivant(CSommet& SOMPoint)
+void CSommet::SOMAjouterArcVers(CSommet& SOMPoint, unsigned int uiIdArc, unsigned int uiPoids)
 {
-	vARCSOMArrivant.push_back(CArc(SOMPoint));
-}
-
-/**
- * Ajoute un arc vers le sommet de destination
- * @param SOMPoint le sommet de destination
- */
-void CSommet::SOMAjouterPartant(CSommet& SOMPoint)
-{
-	vARCSOMPartant.push_back(CArc(SOMPoint));
+	vARCSOMArcs.push_back(CArc(SOMPoint, uiIdArc, uiPoids));
 }
 
 /**
  * Retourne une liste ! en lecture seule ! des arcs partant du sommet
  * @param vARCSOMPartant la liste des arcs partant du sommet
  */
-const vector<CArc>& CSommet::SOMObtenirArcsPartant()
+const vector<CArc>& CSommet::SOMObtenirArcs()
 {
-	return vARCSOMPartant;
-}
-
-/**
- * Retourne une liste ! en lecture seule ! des arcs arrivant sur le sommet
- * @param vARCSOMPartant la liste des arcs arrivant sur le sommet
- */
-const vector<CArc>& CSommet::SOMObtenirArcsArrivant()
-{
-	return vARCSOMArrivant;
+	return vARCSOMArcs;
 }
 
 /**
@@ -61,31 +43,17 @@ const vector<CArc>& CSommet::SOMObtenirArcsArrivant()
  * @return le flux passé en paramètre
  */
 ostream& operator<<(ostream& os, CSommet &SOMParam) {
-	vector<CArc> vARCArrivant = SOMParam.SOMObtenirArcsArrivant();
-	vector<CArc> vARCPartant = SOMParam.SOMObtenirArcsPartant();
+	vector<CArc> vARCArcs = SOMParam.SOMObtenirArcs();
 
 	os << "Point " << SOMParam.SOMObtenirNumero()<< endl;;
 
 	unsigned int uiBoucle = 0;
-	if (vARCArrivant.size() > 0) {
-		os << "Point(s) venant vers " << SOMParam.SOMObtenirNumero() << " sont : "
-			<< vARCArrivant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
-		while (uiBoucle < vARCArrivant.size()-1) {
-			uiBoucle++;
-			os << ", " << vARCArrivant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
-
-		}
-		os << endl;
-	}
-	
-	
-	uiBoucle = 0;
-	if (vARCPartant.size() > 0) {
+	if (vARCArcs.size() > 0) {
 		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " 
-			<< vARCPartant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
-		while (uiBoucle < vARCPartant.size()-1) {
+			<< vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
+		while (uiBoucle < vARCArcs.size()-1) {
 			uiBoucle++;
-			os << ", " << vARCPartant[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
+			os << ", " << vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
 		}
 		os << endl;
 	}	
@@ -95,26 +63,13 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 
 /**
  * Méthode permettant de retirer un CArc de la liste des CArc arrivant du CSommet en cours
- * @param SOMPoint CSommet auquel le point en cours est relié
+ * @param
  */
-void CSommet::SOMRetirerArrivant(const CSommet& SOMPoint)
+void CSommet::SOMRetirerArc(unsigned int idLiaison)
 {
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		if (&SOMPoint == &vARCSOMArrivant[uiBoucle].ARCObtenirSommet()) {
-			vARCSOMArrivant.erase(vARCSOMArrivant.begin() + uiBoucle);
-		}
-	}
-}
-
-/**
- * Méthode permettant de retirer un CArc de la liste des CArc partant du CSommet en cours
- * @param SOMPoint CSommet auquel le point en cours est relié
- */
-void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
-{
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMPartant.size(); uiBoucle++) {
-		if (&SOMPoint == &vARCSOMPartant[uiBoucle].ARCObtenirSommet()) {
-			vARCSOMPartant.erase(vARCSOMPartant.begin() + uiBoucle);
+	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArcs.size(); uiBoucle++) {
+		if (idLiaison == vARCSOMArcs[uiBoucle].ARCObtenirIdLiaison()) {
+			vARCSOMArcs.erase(vARCSOMArcs.begin() + uiBoucle);
 		}
 	}
 }
@@ -122,13 +77,13 @@ void CSommet::SOMRetirerPartant(const CSommet& SOMPoint)
 
 /**
  * Méthode permettant de vérifier qu'un CArc existe
- * @param SOMSommetArrivee CSommet qui est relié au CSommet en cours (s'il existe)
- * @return true si on trouve SOMSommetArrivee dans la liste des CArc partant du CSommet en cours, false sinon
+ * @param idArc l'id de la liaison à vérifier
+ * @return true si la liaison est dans la liste des CArc, false sinon
  */
-bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
+bool CSommet::SOMArcExiste(unsigned int uiIdLiaison)
 {
-	for (CArc& ARCBoucle : vARCSOMPartant) {
-		if (&SOMSommetArrivee == &ARCBoucle.ARCObtenirSommet()) {
+	for (CArc& ARCBoucle : vARCSOMArcs) {
+		if (ARCBoucle.ARCObtenirIdLiaison() == uiIdLiaison) {
 			return true;
 		}
 	}
@@ -136,13 +91,16 @@ bool CSommet::SOMArcExiste(const CSommet& SOMSommetArrivee)
 }
 
 /**
- * Métode qui échange les listes de CArc partant et arrivant permettant ainsi d'inverser les liens dans le CGraphe
- */
-void CSommet::SOMInverserLiens()
-{
-	vector<CArc> vARCTampon = SOMObtenirArcsPartant();
-	vARCSOMPartant = vARCSOMArrivant;
-	vARCSOMArrivant = vARCTampon;
+* Retourne l'objet arc correspondant au numéro de liaison passé en paramètre
+* @param uiIdLiaison l'id de la liaison à chercher
+* @return un pointeur sur l'arc correspondant si celui-ci est trouvé dans le sommet, null sinon
+*/
+CArc* CSommet::SOMObtenirArc(unsigned int uiIdLiaison) {
+	for (CArc &ARCBoucle : vARCSOMArcs) {
+		if (ARCBoucle.ARCObtenirIdLiaison() == uiIdLiaison)
+			return &ARCBoucle;
+	}
+	return NULL;
 }
 
 /**
@@ -157,11 +115,11 @@ void CSommet::SOMModifierNumero(unsigned int uiNumero)
 /**
  * Retire les arcs présents dans les sommets reliés au sommet courant
  */
-void CSommet::SOMSupprimerLiaisons(){
+/*void CSommet::SOMSupprimerLiaisons(){
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
 		vARCSOMArrivant[uiBoucle].ARCObtenirSommet().SOMRetirerArrivant(*this);
 	}
 	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
 		vARCSOMPartant[uiBoucle].ARCObtenirSommet().SOMRetirerPartant(*this);
 	}
-}
+}*/

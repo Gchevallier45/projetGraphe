@@ -72,12 +72,12 @@ CParseur::CParseur(string sCheminFichier)
 						GRAPARgraphe.GRAAjouterPoint(sommet);
 					}
 					else {
-						unsigned int uiLaison[2];
-						for (unsigned int uiBoucle = 0; uiBoucle < 2; uiBoucle++) {
+						unsigned int uiLiaison[2];
+						for (unsigned int uiBoucle = 0; uiBoucle < 3; uiBoucle++) {
 							unsigned int sommet = strtol(pcEnd, &pcEnd,10);
-							uiLaison[uiBoucle] = sommet;
+							uiLiaison[uiBoucle] = sommet;
 						}
-						GRAPARgraphe.GRAAjouterLiaison(uiLaison[0], uiLaison[1]);
+						GRAPARgraphe.GRAAjouterLiaison(uiLiaison[0], uiLiaison[1], uiLiaison[2]);
 					}
 					break;
 				}

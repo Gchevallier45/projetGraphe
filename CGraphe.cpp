@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "CGraphe.h"
 
+CGraphe::CGraphe() {
+	uiGRACompteurLiaisons = 0;
+}
+
 /**
  * Méthode permettant d'ajouter un CSommet au CGraphe
  * @param uiPoint le numéro que prendra le CSommet
@@ -59,106 +63,70 @@ void CGraphe::GRARetirerPoint(unsigned int uiPoint)
 
 /**
  * Ajoute une liaison entre deux sommets dans le graphe
- * @param uiSommetDepart le sommet de départ de la liaison
- * @param uiSommetArrivee le sommet d'arrivée de la liaison
+ * @param uiSommet1 le sommet 1 de la liaison
+ * @param uiSommet2 le sommet 2 de la liaison
+ * @param uiPoidsLiaison le poids de la liaison
  */
-void CGraphe::GRAAjouterLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee)
+void CGraphe::GRAAjouterLiaison(unsigned int uiSommet1, unsigned int uiSommet2, unsigned int uiPoidsLiaison)
 {
-	if (GRASommetExiste(uiSommetDepart) == false) {
-		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
+	if (GRASommetExiste(uiSommet1) == false) {
+		throw CException("Le point " + to_string(uiSommet1) + " n'existe pas");
 	}
-	else if (GRASommetExiste(uiSommetArrivee) == false) {
-		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
+	else if (GRASommetExiste(uiSommet2) == false) {
+		throw CException("Le point " + to_string(uiSommet2) + " n'existe pas");
 	}
 	else {
-		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
-		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
+		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommet1);
+		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommet2);
 
-		if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee)) {
-			throw CException("La liaison du point " + to_string(SOMSommetDepart.SOMObtenirNumero()) + " vers le sommet "
-				+ to_string(SOMSommetArrivee.SOMObtenirNumero()) + " existe deja");
-		}
-		else {
-			SOMSommetDepart.SOMAjouterPartant(SOMSommetArrivee);
-			SOMSommetArrivee.SOMAjouterArrivant(SOMSommetDepart);
-		}
+		SOMSommetDepart.SOMAjouterArcVers(SOMSommetArrivee, uiGRACompteurLiaisons, uiPoidsLiaison);
+		SOMSommetArrivee.SOMAjouterArcVers(SOMSommetDepart, uiGRACompteurLiaisons, uiPoidsLiaison);
+		uiGRACompteurLiaisons++;
 	}
 }
 
 
 /**
- * Méthode permettant la modification de la partie départ d'un lien. Il faut que tous les sommets passés en paramètre existe
- * @param uiSommetDepart le numéro du sommet de départ d'un liaison
- * @param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
- * @param uiNewSommetDepart le numéro du nouveau sommet de départ de la liaison des sommet précédents
+ * 
+
  */
-void CGraphe::GRAModifierDepartLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetDepart)
+void CGraphe::GRAModifierLiaison(unsigned int uiIdLiaison, unsigned int uiSommetARemplacer, unsigned int uiNouveauSommet)
 {
-	if (GRASommetExiste(uiSommetDepart) == false) {
-		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
+	if (GRASommetExiste(uiSommetARemplacer) == false) {
+		throw CException("Le point " + to_string(uiSommetARemplacer) + " n'existe pas");
 	}
-	else if (GRASommetExiste(uiSommetArrivee) == false) {
-		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
-	}
-	else if (GRASommetExiste(uiNewSommetDepart) == false) {
-		throw CException("Le point " + to_string(uiNewSommetDepart) + " n'existe pas");
+	else if (GRASommetExiste(uiNouveauSommet) == false) {
+		throw CException("Le point " + to_string(uiNouveauSommet) + " n'existe pas");
 	}
 	else {
-		GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
-		GRAAjouterLiaison(uiNewSommetDepart, uiSommetArrivee);
+		CSommet& SOMSommetLiaison = *GRAObtenirSommet(uiSommetARemplacer);
+		for (CArc ARCBoucle : SOMSommetLiaison.SOMObtenirArcs()) {
+			if (ARCBoucle.ARCObtenirIdLiaison() == uiIdLiaison) {
+				CSommet& SOMSommetDestinationLiaison = ARCBoucle.ARCObtenirSommet();
+				unsigned int uiPoidsLiaison = ARCBoucle.ARCObtenirPoids();
+				SOMSommetLiaison.SOMRetirerArc(uiIdLiaison);
+				SOMSommetDestinationLiaison.SOMRetirerArc(uiIdLiaison);
+				SOMSommetLiaison.SOMAjouterArcVers(SOMSommetDestinationLiaison, uiIdLiaison, uiPoidsLiaison);
+				SOMSommetDestinationLiaison.SOMAjouterArcVers(SOMSommetLiaison, uiIdLiaison, uiPoidsLiaison);
+				break;
+			}
+		}
 	}
 
-}
-
-/**
- * Méthode permettant la modification de la partie arrivée d'un lien. Il faut que tous les sommets passés en paramètre existe
- * @param uiSommetDepart le numéro du sommet de départ d'un liaison
- * @param uiSommetArrivee le numéro du sommet d'arrivée d'une liaison
- * @param uiNewSommetArrivee le numéro du nouveau sommet de d'arrivée de la liaison des sommet précédents
- */
-void CGraphe::GRAModifierFinLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee, unsigned int uiNewSommetArrivee)
-{
-	if (GRASommetExiste(uiSommetDepart) == false) {
-		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
-	} 
-	else if (GRASommetExiste(uiSommetArrivee) == false) {
-		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
-	}
-	else if (GRASommetExiste(uiNewSommetArrivee) == false) {
-		throw CException("Le point " + to_string(uiNewSommetArrivee) + " n'existe pas");
-	}
-	else {
-		GRARetirerLiaison(uiSommetDepart, uiSommetArrivee);
-		GRAAjouterLiaison(uiSommetDepart, uiNewSommetArrivee);
-	}
 }
 
 
 /**
  * Retire la liaison entre deux sommets dans le graphe 
- * @param uiSommetDepart le sommet de départ de la liaison
- * @param uiSommetArrivee le sommet d'arrivée de la liaison
+ * @param uiIdLiaison l'id de la liaison à supprimer
  */
-void CGraphe::GRARetirerLiaison(unsigned int uiSommetDepart, unsigned int uiSommetArrivee)
+void CGraphe::GRARetirerLiaison(unsigned int uiIdLiaison)
 {
-	if (GRASommetExiste(uiSommetDepart) == false) {
-		throw CException("Le point " + to_string(uiSommetDepart) + " n'existe pas");
-	}
-	else if (GRASommetExiste(uiSommetArrivee) == false) {
-		throw CException("Le point " + to_string(uiSommetArrivee) + " n'existe pas");
-	}
-	else {
-		CSommet& SOMSommetDepart = *GRAObtenirSommet(uiSommetDepart);
-		CSommet& SOMSommetArrivee = *GRAObtenirSommet(uiSommetArrivee);
-
-		if (SOMSommetDepart.SOMArcExiste(SOMSommetArrivee) == false)
-		{
-			throw CException("La liaison du point " + to_string(SOMSommetDepart.SOMObtenirNumero()) + " vers le sommet "
-				+ to_string(SOMSommetArrivee.SOMObtenirNumero()) + "n'existe pas");
-		}
-		else {
-			SOMSommetDepart.SOMRetirerPartant(SOMSommetArrivee);
-			SOMSommetArrivee.SOMRetirerArrivant(SOMSommetDepart);
+	for (CSommet SOMBoucle : vSOMGRAlist) {
+		if (SOMBoucle.SOMArcExiste(uiIdLiaison)) {
+			CSommet& SOMSommetDestination = SOMBoucle.SOMObtenirArc(uiIdLiaison)->ARCObtenirSommet();
+			SOMBoucle.SOMRetirerArc(uiIdLiaison);
+			SOMSommetDestination.SOMRetirerArc(uiIdLiaison);
 		}
 	}
 }
@@ -174,17 +142,6 @@ CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
 			return &SOMBoucle;
 	}
 	return NULL;
-}
-
-/**
- * Méthode permettant d'inverser le sens des liaisons du graphe
- */
-void CGraphe::GRAInverserGraphe()
-{
-	for (CSommet &SOMBoucle : vSOMGRAlist) {
-		SOMBoucle.SOMInverserLiens();
-	}
-	
 }
 
 /**
@@ -244,7 +201,7 @@ CGraphe * CGraphe::GRABoruvka()
 				CArc ARCBoucle = SOMBoucle.SOMObtenirArcs()[uiBoucle];
 				CSommet SOMSommetDestination = ARCBoucle.ARCObtenirSommet();
 				if (SOMSommetDestination.SOMObtenirNumero() == SOMBoucle.SOMObtenirNumero()) {
-					GRATmp.GRARetirerLiaison(ARCBoucle.ARCObtenirId()); //Suppression de l'arc qui boucle
+					GRATmp.GRARetirerLiaison(ARCBoucle.ARCObtenirIdLiaison()); //Suppression de l'arc qui boucle
 					uiBoucle--;
 				}
 			}
@@ -258,10 +215,10 @@ CGraphe * CGraphe::GRABoruvka()
 					CArc ARC2 = SOMBoucle.SOMObtenirArcs()[uiBoucle1];
 					if (ARC1.ARCObtenirSommet().SOMObtenirNumero() == ARC2.ARCObtenirSommet().SOMObtenirNumero()) {
 						if (ARC1.ARCObtenirPoids() < ARC2.ARCObtenirPoids()) {
-							GRATmp.GRARetirerLiaison(ARC2.ARCObtenirId()); //Suppression de l'arc2
+							GRATmp.GRARetirerLiaison(ARC2.ARCObtenirIdLiaison()); //Suppression de l'arc2
 						}
 						else {
-							GRATmp.GRARetirerLiaison(ARC1.ARCObtenirId()); //Suppression de l'arc1
+							GRATmp.GRARetirerLiaison(ARC1.ARCObtenirIdLiaison()); //Suppression de l'arc1
 						}
 						uiBoucle--;
 						uiBoucle1--;
@@ -291,8 +248,7 @@ CGraphe * CGraphe::GRABoruvka()
 
 			//Fusion des sommets, on supprime le sommet en cours et on redirige ses arêtes vers le sommet de destination
 			for (CArc ARCBoucle : SOMBoucle.SOMObtenirArcs()) {
-				GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirId(), SOMDestinationArcPoidsMin.SOMObtenirNumero(), ARCBoucle.ARCObtenirSommet().SOMObtenirNumero());
-				SOMBoucle.SOMAjouterArc(ARCBoucle);
+				GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
 			}
 			GRATmp.GRARetirerPoint(SOMBoucle.SOMObtenirNumero());
 			uiBoucle--; //Car on a supprimé le sommet en cours

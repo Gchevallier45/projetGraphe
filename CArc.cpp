@@ -5,8 +5,10 @@
  * Construit un arc avec un sommet de destination
  * @param pSOMSommetParam le sommet de destination de l'arc
  */
-CArc::CArc(CSommet& SOMSommetParam) {
+CArc::CArc(CSommet& SOMSommetParam,unsigned int uiIdArc, unsigned int uiPoids) {
 	ARCModifierDestination(SOMSommetParam);
+	uiARCIdLiaison = uiIdArc;
+	uiARCPoids = uiPoids;
 }
 
 /**
@@ -26,7 +28,10 @@ CSommet& CArc::ARCObtenirSommet() {
 	return *pSOMARCDestination;
 }
 
-unsigned int CArc::ARCObtenirId() {
-	return uiId;
+unsigned int CArc::ARCObtenirIdLiaison() {
+	return uiARCIdLiaison;
 }
 
+unsigned int CArc::ARCObtenirPoids() {
+	return uiARCPoids;
+}

@@ -14,23 +14,19 @@ class CSommet
 {
 private :
 	unsigned int uiSOMNumero;
-	vector<CArc> vARCSOMArrivant;
-	vector<CArc> vARCSOMPartant;
+	vector<CArc> vARCSOMArcs;
 	CSommet(); //Désactive le constructeur par défaut et oblige l'utilisateur à construire un sommet avec un numéro
 
 public:
 	CSommet(unsigned int uiNumeroParam);
 	int SOMObtenirNumero();
-	void SOMAjouterArrivant(CSommet& SOMPoint);
-	void SOMRetirerArrivant(const CSommet& SOMPoint);
-	void SOMAjouterPartant(CSommet& SOMPoint);
-	void SOMRetirerPartant(const CSommet& SOMPoint);
-	void SOMSupprimerLiaisons();
-	bool SOMArcExiste(const CSommet& SOMSommetArrivee);
-	void SOMInverserLiens();
+	void SOMAjouterArcVers(CSommet& SOMPoint, unsigned int idArc, unsigned int uiPoids);
+	void SOMRetirerArc(unsigned int idArc);
+	//void SOMSupprimerLiaisons();
+	bool SOMArcExiste(unsigned int uiIdLiaison);
 	void SOMModifierNumero(unsigned int uiNumero);
-	const vector<CArc>& SOMObtenirArcsPartant();
-	const vector<CArc>& SOMObtenirArcsArrivant();
+	CArc* SOMObtenirArc(unsigned int uiIdLiaison);
+	const vector<CArc>& SOMObtenirArcs();
 	friend ostream& operator<<(ostream& os, CSommet &SOMParam);
 };
 

@@ -12,16 +12,15 @@ class CArc
 private :
 
 	CSommet* pSOMARCDestination;
-	CSommet* pSOMARCDestination;
-	unsigned int uiPoids;
-	unsigned int uiId;
+	unsigned int uiARCPoids;
+	unsigned int uiARCIdLiaison;
 
 public:
-	CArc(CSommet& SOMSommetParam);
+	CArc(CSommet& SOMSommetParam, unsigned int uiIdArc, unsigned int uiPoids);
 
 	void ARCModifierDestination(CSommet& SOMSommetParam);
 	CSommet& ARCObtenirSommet();
-	unsigned int ARCObtenirId();
-
+	unsigned int ARCObtenirIdLiaison();
+	unsigned int ARCObtenirPoids();
 };
 
