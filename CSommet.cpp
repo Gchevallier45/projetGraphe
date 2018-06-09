@@ -50,10 +50,10 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 	unsigned int uiBoucle = 0;
 	if (vARCArcs.size() > 0) {
 		os << "Point(s) partant de " << SOMParam.SOMObtenirNumero() << " sont : " 
-			<< vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
+			<< vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero() << " (poids " << vARCArcs[uiBoucle].ARCObtenirPoids() << ")";
 		while (uiBoucle < vARCArcs.size()-1) {
 			uiBoucle++;
-			os << ", " << vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero();
+			os << ", " << vARCArcs[uiBoucle].ARCObtenirSommet().SOMObtenirNumero() << " (poids " << vARCArcs[uiBoucle].ARCObtenirPoids() << ")";
 		}
 		os << endl;
 	}	
