@@ -199,11 +199,12 @@ CGraphe * CGraphe::GRABoruvka()
 		//Suppression des boucles
 		for (CSommet SOMBoucle : GRATmp.GRAObtenirListeSommets()) {
 			for (int uiBoucle = 0; uiBoucle < SOMBoucle.SOMObtenirArcs().size(); uiBoucle++) {
+				cout << uiBoucle << endl;
 				CArc& ARCBoucle = SOMBoucle.SOMObtenirArcs()[uiBoucle];
 				CSommet SOMSommetDestination = ARCBoucle.ARCObtenirSommet();
 				if (SOMSommetDestination.SOMObtenirNumero() == SOMBoucle.SOMObtenirNumero()) {
 					GRATmp.GRARetirerLiaison(ARCBoucle.ARCObtenirIdLiaison()); //Suppression de l'arc qui boucle
-					uiBoucle--;
+					//uiBoucle--;
 				}
 			}
 		}
@@ -222,8 +223,8 @@ CGraphe * CGraphe::GRABoruvka()
 						else {
 							GRATmp.GRARetirerLiaison(ARC1.ARCObtenirIdLiaison()); //Suppression de l'arc1
 						}
-						uiBoucle--;
-						uiBoucle1--;
+						//uiBoucle--;
+						//uiBoucle1--;
 					}
 				}
 			}
@@ -261,6 +262,7 @@ CGraphe * CGraphe::GRABoruvka()
 					GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
 				}
 				GRATmp.GRARetirerPoint(SOMBoucle.SOMObtenirNumero());
+
 				uiBoucle--; //Car on a supprimé le sommet en cours
 			}
 		}
