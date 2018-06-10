@@ -72,7 +72,7 @@ CParseur::CParseur(string sCheminFichier)
 						GRAPARgraphe.GRAAjouterPoint(sommet);
 					}
 					else {
-						unsigned int uiLiaison[2];
+						unsigned int uiLiaison[3];
 						for (unsigned int uiBoucle = 0; uiBoucle < 3; uiBoucle++) {
 							unsigned int sommet = strtol(pcEnd, &pcEnd,10);
 							uiLiaison[uiBoucle] = sommet;
