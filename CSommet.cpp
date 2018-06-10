@@ -19,8 +19,10 @@ int CSommet::SOMObtenirNumero() {
 }
 
 /**
- * Ajoute un arc vers le sommet de départ
- * @param SOMPoint le sommet de départ
+ * Ajoute un arc vers un sommet passé en paramètre
+ * @param SOMPoint le sommet de destination
+ * @param uiIdArc l'id de la liaison
+ * @param uiPoids le poids de la liaison
  */
 void CSommet::SOMAjouterArcVers(CSommet& SOMPoint, unsigned int uiIdArc, unsigned int uiPoids)
 {
@@ -62,8 +64,8 @@ ostream& operator<<(ostream& os, CSommet &SOMParam) {
 }
 
 /**
- * Méthode permettant de retirer un CArc de la liste des CArc arrivant du CSommet en cours
- * @param
+ * Méthode permettant de retirer un CArc de la liste des CArc du CSommet en cours
+ * @param idLiaison la liaison correspondant à l'arc à supprimer
  */
 void CSommet::SOMRetirerArc(unsigned int idLiaison)
 {
@@ -74,10 +76,9 @@ void CSommet::SOMRetirerArc(unsigned int idLiaison)
 	}
 }
 
-
 /**
  * Méthode permettant de vérifier qu'un CArc existe
- * @param idArc l'id de la liaison à vérifier
+ * @param uiIdLiaison l'id de la liaison à vérifier
  * @return true si la liaison est dans la liste des CArc, false sinon
  */
 bool CSommet::SOMArcExiste(unsigned int uiIdLiaison)
@@ -105,21 +106,9 @@ CArc* CSommet::SOMObtenirArc(unsigned int uiIdLiaison) {
 
 /**
  * Modifie le numéro du CSommet
- * @Param uiNumero Nouveau numéro du sommet
+ * @param uiNumero Nouveau numéro du sommet
  */
 void CSommet::SOMModifierNumero(unsigned int uiNumero)
 {
 	uiSOMNumero = uiNumero;
 }
-
-/**
- * Retire les arcs présents dans les sommets reliés au sommet courant
- */
-/*void CSommet::SOMSupprimerLiaisons(){
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		vARCSOMArrivant[uiBoucle].ARCObtenirSommet().SOMRetirerArrivant(*this);
-	}
-	for (unsigned int uiBoucle = 0; uiBoucle < vARCSOMArrivant.size(); uiBoucle++) {
-		vARCSOMPartant[uiBoucle].ARCObtenirSommet().SOMRetirerPartant(*this);
-	}
-}*/

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "CGraphe.h"
 
+/**
+ * Constructeur par défaut
+ */
 CGraphe::CGraphe() {
 	uiGRACompteurLiaisons = 0;
 }
@@ -87,8 +90,10 @@ void CGraphe::GRAAjouterLiaison(unsigned int uiSommet1, unsigned int uiSommet2, 
 
 
 /**
- * 
-
+ * Modifie une liaison du graphe
+ * @param uiIdLiaison l'id de la liaison à modifier
+ * @param uiSommetARemplacer le numéro du sommet à remplacer
+ * @param uiNouveauSommet le numéro du nouveau sommet de la liaison
  */
 void CGraphe::GRAModifierLiaison(unsigned int uiIdLiaison, unsigned int uiSommetARemplacer, unsigned int uiNouveauSommet)
 {
@@ -115,7 +120,6 @@ void CGraphe::GRAModifierLiaison(unsigned int uiIdLiaison, unsigned int uiSommet
 	}
 
 }
-
 
 /**
  * Retire la liaison entre deux sommets dans le graphe 
@@ -147,7 +151,7 @@ CSommet* CGraphe::GRAObtenirSommet(unsigned int uiNumeroSommet) {
 
 /**
  * Retourne une liste ! en lecture seule ! des sommets du graphe
- * @param vSOMGRAlist la liste des sommets du graphe
+ * @return vSOMGRAlist la liste des sommets du graphe
  */
 const vector<CSommet>& CGraphe::GRAObtenirListeSommets()
 {
@@ -184,10 +188,15 @@ bool CGraphe::GRASommetExiste(unsigned int uiNumeroSommet) {
 	return false;
 }
 
-void CGraphe::GRAObtenirSommetsLiaison(unsigned int *puiTabSommets, unsigned int idLiaison) {
+/**
+ * Retourne dans le tableau passé en paramètre les numéros des sommets de la liaison
+ * @param puiTabSommets le tableau pour stocker les numéros des sommets
+ * @param uiIdLiaison l'id de la liaison à rechercher
+ */
+void CGraphe::GRAObtenirSommetsLiaison(unsigned int *puiTabSommets, unsigned int uiIdLiaison) {
 	unsigned int uiIndice = 0;
 	for (CSommet& SOMBoucle : vSOMGRAlist) {
-		if (SOMBoucle.SOMArcExiste(idLiaison)) {
+		if (SOMBoucle.SOMArcExiste(uiIdLiaison)) {
 			puiTabSommets[uiIndice] = SOMBoucle.SOMObtenirNumero();
 			uiIndice++;
 		}
@@ -195,7 +204,7 @@ void CGraphe::GRAObtenirSommetsLiaison(unsigned int *puiTabSommets, unsigned int
 }
 
 /**
- * Implementation de l'algorithme de Boruvka
+ * Implementation de l'algorithme de Boruvka, retourne l'arbre couvrant de poids minimal du graphe courant
  * (l'utilisateur doit se charger de désallouer le graphe retournée par la fonction)
  * @return un graphe contenant l'arbre couvrant T de l'objet graphe actuel
  */
@@ -207,8 +216,7 @@ CGraphe * CGraphe::GRABoruvka()
 	while (GRATmp.GRAObtenirListeSommets().size() != 1) {
 		//Suppression des boucles
 		for (CSommet SOMBoucle : GRATmp.GRAObtenirListeSommets()) {
-			for (int uiBoucle = 0; uiBoucle < SOMBoucle.SOMObtenirArcs().size(); uiBoucle++) {
-				CArc& ARCBoucle = SOMBoucle.SOMObtenirArcs()[uiBoucle];
+			for(CArc &ARCBoucle : SOMBoucle.SOMObtenirArcs()){
 				CSommet SOMSommetDestination = ARCBoucle.ARCObtenirSommet();
 				if (SOMSommetDestination.SOMObtenirNumero() == SOMBoucle.SOMObtenirNumero()) {
 					GRATmp.GRARetirerLiaison(ARCBoucle.ARCObtenirIdLiaison()); //Suppression de l'arc qui boucle
@@ -234,17 +242,19 @@ CGraphe * CGraphe::GRABoruvka()
 			}
 		}
 
-		vector<CSommet> vSOMSommetsAvantModif = GRATmp.GRAObtenirListeSommets();
+		vector<CSommet> vSOMSommetsAvantModif = GRATmp.GRAObtenirListeSommets(); //On copie la liste des sommets avant de boucler dessus sinon elle est modifiée et on ne peut pas boucler correctement
 		for(CSommet& SOMBoucle:vSOMSommetsAvantModif){
 			//Recherche de l'arête avec poids minimal
 			CArc ARCArcPoidsMin = SOMBoucle.SOMObtenirArcs()[0];
-			for (CArc ARCBoucle : SOMBoucle.SOMObtenirArcs()) {
+			for (CArc &ARCBoucle : SOMBoucle.SOMObtenirArcs()) {
 				if (ARCBoucle.ARCObtenirPoids() < ARCArcPoidsMin.ARCObtenirPoids()) {
 					ARCArcPoidsMin = ARCBoucle;
 				}
 			}
 
 			CSommet SOMDestinationArcPoidsMin = ARCArcPoidsMin.ARCObtenirSommet();
+
+			//Permet d'obtenir les sommets de la liaison sur le graphe original pour ensuite l'ajouter dans l'arbre
 			unsigned int puiSommetsLiaisonsReels[2];
 			GRAObtenirSommetsLiaison(puiSommetsLiaisonsReels, ARCArcPoidsMin.ARCObtenirIdLiaison());
 
@@ -256,8 +266,8 @@ CGraphe * CGraphe::GRABoruvka()
 					GRAArbreCouvrant->GRAAjouterPoint(puiSommetsLiaisonsReels[1]);
 				GRAArbreCouvrant->GRAAjouterLiaison(puiSommetsLiaisonsReels[0], puiSommetsLiaisonsReels[1], ARCArcPoidsMin.ARCObtenirPoids());
 				
-				//Fusion des sommets, on supprime le sommet en cours et on redirige ses arêtes vers le sommet de destination
-				for (CArc ARCBoucle : SOMBoucle.SOMObtenirArcs()) {
+				//Fusion des sommets sur la copie du graphe, on supprime le sommet en cours et on redirige ses arêtes vers le sommet de destination
+				for (CArc &ARCBoucle : SOMBoucle.SOMObtenirArcs()) {
 					GRATmp.GRAModifierLiaison(ARCBoucle.ARCObtenirIdLiaison(), SOMBoucle.SOMObtenirNumero(), SOMDestinationArcPoidsMin.SOMObtenirNumero());
 				}
 				GRATmp.GRARetirerLiaison(ARCArcPoidsMin.ARCObtenirIdLiaison());

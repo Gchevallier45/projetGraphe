@@ -22,7 +22,6 @@ public:
 	int SOMObtenirNumero();
 	void SOMAjouterArcVers(CSommet& SOMPoint, unsigned int idArc, unsigned int uiPoids);
 	void SOMRetirerArc(unsigned int idArc);
-	//void SOMSupprimerLiaisons();
 	bool SOMArcExiste(unsigned int uiIdLiaison);
 	void SOMModifierNumero(unsigned int uiNumero);
 	CArc* SOMObtenirArc(unsigned int uiIdLiaison);
